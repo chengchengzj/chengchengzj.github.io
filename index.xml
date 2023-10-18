@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>个人学习笔记</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 17 Oct 2023 22:10:59 +0800</lastBuildDate>
+    
+        <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Tue, 17 Oct 2023 21:38:52 +0800</pubDate>
+      
+      <guid>http://localhost:1313/about/</guid>
+      
+        <description>&lt;p&gt;学习笔记&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>个人博客缘起</title>
+      <link>http://localhost:1313/post/origin/</link>
+      <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/origin/</guid>
+      
+        <description>&lt;h2 id=&#34;先提问再起笔&#34;&gt;先提问再起笔&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;为什么要搭建个人博客？&lt;/li&gt;
+&lt;li&gt;会不会是三分钟热度？&lt;/li&gt;
+&lt;li&gt;考虑好记录哪些内容？&lt;/li&gt;
+&lt;li&gt;对于技术选型有哪些思考？&lt;/li&gt;
+&lt;li&gt;有哪些期望和目标？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;思而答&#34;&gt;思而答&lt;/h2&gt;
+&lt;h3 id=&#34;为什么要搭建个人博客&#34;&gt;为什么要搭建个人博客&lt;/h3&gt;
+&lt;p&gt;首先，搭建博客既有内因也有外因。&lt;/p&gt;
+&lt;p&gt;外因：当前的就业环境并不理想，竞争压力大，可生活压力更大，失业的囧境不敢想象。也受很多博主文章的影响，像是“不要高估一年的成长，更不要低估十年的成长”。外在环境在不断的牵引着我要去学习，去积累，去沉淀。&lt;/p&gt;
+&lt;p&gt;内因：自己本身对研究技术，搭建博客等感兴趣，再者，也不想业余时间沉浸在抖音之类的娱乐上自我消磨。去实践，去将自己学到的，想学的及生活中的感悟记录在册，方便日后查阅。我相信最好的学习方式是输入的同时快速输出实践，否则很难进一步的理解以及容易忘却。&lt;/p&gt;
+&lt;p&gt;综上，个人博客的实践应运而生。&lt;/p&gt;
+&lt;h3 id=&#34;会不会是三分钟热度&#34;&gt;会不会是三分钟热度&lt;/h3&gt;
+&lt;p&gt;确实，很多时候我是三分钟热度，业余生活中容易被其他事情影响，而放弃原本想坚持的事情。我也想通过此方式，告诫自己要养成坚持初心的习惯。不断学习，不断实践，不断记录。&lt;/p&gt;
+&lt;h3 id=&#34;考虑好记录哪些内容&#34;&gt;考虑好记录哪些内容&lt;/h3&gt;
+&lt;p&gt;目前，想记录内容总体分为三大类吧，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;技术实践&lt;/li&gt;
+&lt;li&gt;学习笔记&lt;/li&gt;
+&lt;li&gt;生活感悟&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;希望养成边学边练边输出的习惯，助力自己更好的学习各项技能。&lt;/p&gt;
+&lt;h3 id=&#34;对于技术选型有哪些思考&#34;&gt;对于技术选型有哪些思考&lt;/h3&gt;
+&lt;p&gt;目前选择了静态博客的方式，因为想快速看到效果，而不是自己花时间去从头搭建一套CMS，当然未来有可能去做这件事。通过hugo快速生成静态页面，通过GitHub Action 串联 GitHub page 的方式，实现一键式部署的方式，边玩边学的心态。&lt;/p&gt;
+&lt;h3 id=&#34;有哪些期望和目标&#34;&gt;有哪些期望和目标&lt;/h3&gt;
+&lt;p&gt;至于期望与目标，短期来看，就想通过这样一种方式养成持续学习的习惯，达到深入理解知识点的目的。明确目标，对系统架构的理解、对基础知识的掌握、对典型应用场景的技术选型有一定的梳理与记录。&lt;/p&gt;
+&lt;h2 id=&#34;结语&#34;&gt;结语&lt;/h2&gt;
+&lt;p&gt;锲而舍之，朽木不折；锲而不舍，金石可镂。&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
