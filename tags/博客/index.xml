@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>博客 on 个人学习笔记</title>
-    <link>http://localhost:1313/tags/%E5%8D%9A%E5%AE%A2/</link>
+    <link>https://chengchengzj.github.io/tags/%E5%8D%9A%E5%AE%A2/</link>
     <description>Recent content in 博客 on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 17 Oct 2023 22:10:59 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 Oct 2023 22:10:59 +0800</lastBuildDate><atom:link href="https://chengchengzj.github.io/tags/%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>个人博客缘起</title>
-      <link>http://localhost:1313/post/origin/</link>
+      <link>https://chengchengzj.github.io/post/origin/</link>
       <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/origin/</guid>
+      <guid>https://chengchengzj.github.io/post/origin/</guid>
       <description></description>
     </item>
     
