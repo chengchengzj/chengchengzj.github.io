@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>杂文 on 个人学习笔记</title>
+    <link>https://blog.emath.top/tags/%E6%9D%82%E6%96%87/</link>
+    <description>Recent content in 杂文 on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 17 Oct 2023 22:10:59 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/%E6%9D%82%E6%96%87/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>个人博客缘起</title>
+      <link>https://blog.emath.top/post/origin/</link>
+      <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/origin/</guid>
+      <description>&lt;p&gt;记录自己为什么要写博客及围绕博客这个主题将会做些什么。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

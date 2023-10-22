@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 个人学习笔记</title>
+    <link>https://blog.emath.top/tags/</link>
+    <description>Recent content in Tags on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 20 Oct 2023 22:29:17 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hugo</title>
+      <link>https://blog.emath.top/tags/hugo/</link>
+      <pubDate>Fri, 20 Oct 2023 22:29:17 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>博客</title>
+      <link>https://blog.emath.top/tags/%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Fri, 20 Oct 2023 22:29:17 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/tags/%E5%8D%9A%E5%AE%A2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>实践</title>
+      <link>https://blog.emath.top/tags/%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Fri, 20 Oct 2023 22:29:17 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/tags/%E5%AE%9E%E8%B7%B5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>感悟</title>
+      <link>https://blog.emath.top/tags/%E6%84%9F%E6%82%9F/</link>
+      <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/tags/%E6%84%9F%E6%82%9F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>杂文</title>
+      <link>https://blog.emath.top/tags/%E6%9D%82%E6%96%87/</link>
+      <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/tags/%E6%9D%82%E6%96%87/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

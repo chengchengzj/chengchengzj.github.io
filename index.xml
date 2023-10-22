@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>个人学习笔记</title>
+    <link>https://blog.emath.top/</link>
+    <description>Recent content on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 20 Oct 2023 22:29:17 +0800</lastBuildDate>
+    
+        <atom:link href="https://blog.emath.top/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>个人博客缘起</title>
+      <link>https://blog.emath.top/post/origin/</link>
+      <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/origin/</guid>
+      
+        <description>&lt;p&gt;记录自己为什么要写博客及围绕博客这个主题将会做些什么。&lt;/p&gt;
+&lt;h2 id=&#34;先提问再起笔&#34;&gt;先提问再起笔&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;为什么要搭建个人博客？&lt;/li&gt;
+&lt;li&gt;会不会是三分钟热度？&lt;/li&gt;
+&lt;li&gt;考虑好记录哪些内容？&lt;/li&gt;
+&lt;li&gt;对于技术选型有哪些思考？&lt;/li&gt;
+&lt;li&gt;有哪些期望和目标？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;思而答&#34;&gt;思而答&lt;/h2&gt;
+&lt;h3 id=&#34;为什么要搭建个人博客&#34;&gt;为什么要搭建个人博客&lt;/h3&gt;
+&lt;p&gt;首先，搭建博客既有内因也有外因。&lt;/p&gt;
+&lt;p&gt;外因：当前的就业环境并不理想，竞争压力大，可生活压力更大，失业的囧境不敢想象。也受很多博主文章的影响，像是“不要高估一年的成长，更不要低估十年的成长”。外在环境在不断的牵引着我要去学习，去积累，去沉淀。&lt;/p&gt;
+&lt;p&gt;内因：自己本身对研究技术，搭建博客等感兴趣，再者，也不想业余时间沉浸在抖音之类的娱乐上自我消磨。去实践，去将自己学到的，想学的及生活中的感悟记录在册，方便日后查阅。我相信最好的学习方式是输入的同时快速输出实践，否则很难进一步的理解以及容易忘却。&lt;/p&gt;
+&lt;p&gt;综上，个人博客的实践应运而生。&lt;/p&gt;
+&lt;h3 id=&#34;会不会是三分钟热度&#34;&gt;会不会是三分钟热度&lt;/h3&gt;
+&lt;p&gt;确实，很多时候我是三分钟热度，业余生活中容易被其他事情影响，而放弃原本想坚持的事情。我也想通过此方式，告诫自己要养成坚持初心的习惯。不断学习，不断实践，不断记录。&lt;/p&gt;
+&lt;h3 id=&#34;考虑好记录哪些内容&#34;&gt;考虑好记录哪些内容&lt;/h3&gt;
+&lt;p&gt;目前，想记录内容总体分为三大类吧，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;技术实践&lt;/li&gt;
+&lt;li&gt;学习笔记&lt;/li&gt;
+&lt;li&gt;生活感悟&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;希望养成边学边练边输出的习惯，助力自己更好的学习各项技能。&lt;/p&gt;
+&lt;h3 id=&#34;对于技术选型有哪些思考&#34;&gt;对于技术选型有哪些思考&lt;/h3&gt;
+&lt;p&gt;目前选择了静态博客的方式，因为想快速看到效果，而不是自己花时间去从头搭建一套CMS，当然未来有可能去做这件事。通过hugo快速生成静态页面，通过GitHub Action 串联 GitHub page 的方式，实现一键式部署的方式，边玩边学的心态。&lt;/p&gt;
+&lt;h3 id=&#34;有哪些期望和目标&#34;&gt;有哪些期望和目标&lt;/h3&gt;
+&lt;p&gt;至于期望与目标，短期来看，就想通过这样一种方式养成持续学习的习惯，达到深入理解知识点的目的。明确目标，对系统架构的理解、对基础知识的掌握、对典型应用场景的技术选型有一定的梳理与记录。&lt;/p&gt;
+&lt;h2 id=&#34;结语&#34;&gt;结语&lt;/h2&gt;
+&lt;p&gt;锲而舍之，朽木不折；锲而不舍，金石可镂。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>https://blog.emath.top/about/</link>
+      <pubDate>Tue, 17 Oct 2023 21:38:52 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/about/</guid>
+      
+        <description>&lt;p&gt;学习笔记&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>基于HUGO搭建个人静态博客</title>
+      <link>https://blog.emath.top/post/hugo/hugoblog/</link>
+      <pubDate>Fri, 20 Oct 2023 22:29:17 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/hugo/hugoblog/</guid>
+      
+        <description>&lt;p&gt;记录使用hugo如何快速搭建个人博客在本地运行，记录hugo相关内容作为日后使用及扩展做好准备。&lt;/p&gt;
+&lt;h2 id=&#34;一hugo&#34;&gt;一、HUGO&lt;/h2&gt;
+&lt;h3 id=&#34;1-简介&#34;&gt;1. 简介&lt;/h3&gt;
+&lt;p&gt;HUGO是基于Go编写的静态博客生成器，它能够将我们使用markdown格式写的文本内容快速的转换为HTML文档，并启动web服务，即可在浏览器中展示。&lt;/p&gt;
+&lt;h3 id=&#34;2-感受&#34;&gt;2. 感受&lt;/h3&gt;
+&lt;p&gt;它吸引我的地方在于其转换的速度，等后面正式上手后，又觉得整个搭建过程很简单很流畅。最让我纠结的地方就在于选主题了，总希望能找到一个简约、清爽的主题，最后还是做了小小的妥协，先完成整个搭建流程，再多写上几篇文章之后再花时间挑选或改造也不迟。&lt;/p&gt;
+&lt;h3 id=&#34;3-原理&#34;&gt;3. 原理&lt;/h3&gt;
+&lt;p&gt;一个静态博客框架，基于模版，将markdown文档转换为html文档。
+&lt;img src=&#34;./images/hugo_schematic.png&#34; alt=&#34;原理&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二快速使用&#34;&gt;二、快速使用&lt;/h2&gt;
+&lt;p&gt;参照以下几个步骤，很快便可以实现个人博客的本地服务，总体而言稍微费时的便是选择中意的主题，其次是参照主题示例（exampleSite），配置hugo.toml文件以实现个人博客的个性化配置。当搭建好了个人博客的整体的架子后，往后的工作也只需要关心内容的输出，不断的创建新的文章即可。&lt;/p&gt;
+&lt;h3 id=&#34;1-安装hugo&#34;&gt;1. 安装hugo&lt;/h3&gt;
+&lt;p&gt;基于macos的安装方式：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;//执行安装命令
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;//查看安装结果
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo version
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo v0.119.0-b84644c008e0dc2c4b67bd69cccf87a41a03937e
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-创建站点&#34;&gt;2. 创建站点&lt;/h3&gt;
+&lt;p&gt;创建一个名为blog的站点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;//执行命令
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo new site blog
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-选择主题&#34;&gt;3. 选择主题&lt;/h3&gt;
+&lt;p&gt;在&lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;主题网址&lt;/a&gt;中选择一个符合自己审美的主题，简单比较了几个，确定了&lt;a href=&#34;https://github.com/xianmin/hugo-theme-jane&#34;&gt;jane&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd blog
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;//初始化git 仓库
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git init
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;//安装主题
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/xianmin/hugo-theme-jane themes/jane
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;4-修改配置&#34;&gt;4. 修改配置&lt;/h3&gt;
+&lt;p&gt;将themes/jane/exampleSite/config.toml内容复制到hugo.toml文件中，开始按需更改。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; cp themes/jane/exampleSite/config.toml hugo.toml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;5-创建文章&#34;&gt;5. 创建文章&lt;/h3&gt;
+&lt;p&gt;创建第一篇属于自己的文章&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;//执行命令
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo new post/title.md
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以开始专注于写内容了。
+当然如果想快速看效果，也可以将themes/jane/exampleSite/content内容复制到 content目录中。&lt;/p&gt;
+&lt;h3 id=&#34;6-查看效果&#34;&gt;6. 查看效果&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;//执行命令
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server -D
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;打开网址 http://localhost:1313/ 即可查看效果&lt;/p&gt;
+&lt;h2 id=&#34;项目简介&#34;&gt;项目简介&lt;/h2&gt;
+&lt;p&gt;参照上述步骤完成了博客的搭建，下面记录一下项目目录结构及关键文件的作用，方便更好的创作及整个博客主题内容的按需扩展。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tree -a -L &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── .git                   //git init 是生成的与文件夹，存放git版本信息。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── .gitignore             //此文件用来制定哪些文件或文件夹不受版本控制，白话点就是不想提交至git仓库点文件在这里指定，后文会用到它。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── .gitmodules            //用于管理子模块，比如主题就用到了submodules。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── .hugo_build.lock       //用于控制多个hugo实例的并发。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── archetypes             //hugo new xxx.md 依据此目录下的模板生成 xxx.md 的头部信息，像 title、date 等。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   └── default.md
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── assets                 //用于存放js、css等资源。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   └── jsconfig.json
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── config                 //用于设置不同环境的配置信息，像不同环境的hugo.toml，启动时需要指定环境，eg: hugo --environment staging。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   └── staging
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── content                //文章内容目录，hugo new xxx.md 生成文件的位置，创作内容存放于此。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   ├── about.md
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   └── post
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│       ├── hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│       └── origin.md
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── data                   //存放数据模版，既可以是静态数据，还可以是一些动态数据，通过URL获取。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── hugo.toml              //全局配置文件，配置整个站点信息。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── i18n                   //多语言配置表，当网址支持多国语言时的变量配置。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── layouts                //存放用来将content、data等资源渲染为完整网站的模板文件。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── public                 //执行hugo命令会将内容渲染为网站，网站内容便存放在public目录下即静态博客。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── resources              //存放缓存的css与images文件。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   └── _gen
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│       └── assets
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;├── static                 //存放静态资源，渲染时会将文件内容复制到public目录下。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   ├── favicon.ico
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   ├── googleddf7a5b53f538ab8.html
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;│   └── images
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;└── themes                 //主题目录，可以存放一个或多个主题。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    └── jane
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;1-content&#34;&gt;1. content&lt;/h3&gt;
+&lt;p&gt;内容创作目录，当创建文章时就是在此目录下生成相应的markdown文件，当我们的文章中需要引入一些静态文件，比如图片，也可以存放在该目录下，方便文章引用。&lt;/p&gt;
+&lt;p&gt;这里对我们有个小小的要求，就是需要掌握markdown的语法，其实也很简单，后面会考虑整理一份关于markdown语法整理的文档，便于自己快速查阅。&lt;/p&gt;
+&lt;p&gt;还有一个需要引起思考的话题就是我们在什么地方进行初次创作，然后再将内容贴到该目录下。这里可以是类似飞书文档但是需要进行一些转换，这个能否基于什么工具进行转换为markdown文件，或者直接使用markdown编辑器，像是Typora。&lt;/p&gt;
+&lt;h3 id=&#34;2-archetypes&#34;&gt;2. archetypes&lt;/h3&gt;
+&lt;p&gt;用来定义创建文章的模板文件夹。当我们使用 &lt;code&gt;hugo new xxx.md&lt;/code&gt; 命令时，便会依据此目录下的模板文件（default.md）生成 xxx.md 文件，此模板文件可以预定一些变量信息。&lt;br&gt;
+下面列举一些常用的变量：&lt;br&gt;
+详细参照&lt;a href=&#34;https://gohugo.io/content-management/front-matter/#front-matter-variables&#34;&gt;官网内容&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;date&lt;/td&gt;
+&lt;td&gt;文章创建时间&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;description&lt;/td&gt;
+&lt;td&gt;文章描述&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;draft&lt;/td&gt;
+&lt;td&gt;当设置为true时，标记为草稿内容，文章将不会显示&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;layout&lt;/td&gt;
+&lt;td&gt;指定文章选择的布局，否则按照默认顺序选择布局&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;weight&lt;/td&gt;
+&lt;td&gt;文章权重，从1开始，越小权重越大，排序越靠前&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;当我们的博客内容足够丰富时，不同类型的博客可能需要不同的模板，此时我们便可以创建除default.md以外的模板，比如我们可以在该目录下创建了一个名为post.md的模板。&lt;/p&gt;
+&lt;p&gt;当我们执行&lt;code&gt;hugo new post/xxx.md&lt;/code&gt;时，hugo会按照以下顺序确定最终模板来创建xxx.md文件。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;archetypes/post.md&lt;/li&gt;
+&lt;li&gt;themes/jane/archetypes/posts.md&lt;/li&gt;
+&lt;li&gt;archetypes/default.md&lt;/li&gt;
+&lt;li&gt;themes/jane/archetypes/default.md&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果上述几个文件都不存在，就由内置默认模版兜底。&lt;/p&gt;
+&lt;h2 id=&#34;四常用命令&#34;&gt;四、常用命令&lt;/h2&gt;
+&lt;h3 id=&#34;1-添加文章&#34;&gt;1. 添加文章&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo new content path/title.md
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-构建网站&#34;&gt;2. 构建网站&lt;/h3&gt;
+&lt;p&gt;在本地开发与测试阶段，需要用该命令以启动http服务，并支持热加载。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-部署网站&#34;&gt;3. 部署网站&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;参数：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    指定 baseURL：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -b baseURL 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    指定环境变量：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -e env 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    指定主题：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -t theme 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    编译草稿文章（draft:true）：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -D 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    编译已过期文章（expiryDate &amp;lt; now）：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -E 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    编译未来发布文章（publishDate &amp;gt; now）：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -F 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;五尾注&#34;&gt;五、尾注&lt;/h2&gt;
+&lt;p&gt;这篇文章与我而言其价值在于，先简单记录了基于hugo搭建博客的流程，基于此流程可以更加快速的完成博客的搭建。其次整理了hugo的目录结构，让我对hugo的功能边界及其原理有了初步的认识，为日后能够舒服的使用hugo埋下伏笔，更为日后改善博客主题样式做好了铺垫。当然，我很满意它的构建速度，也想在未来的时候能够去扩展，丰富我的个人博客。希望能够不负当初的愿望，真正实现帮助我学习提升。&lt;/p&gt;
+&lt;p&gt;下一篇内容，计划是梳理关于如何将个人博客部署到网站托管平台。&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

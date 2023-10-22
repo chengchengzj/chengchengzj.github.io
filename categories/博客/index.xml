@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>博客 on 个人学习笔记</title>
+    <link>https://blog.emath.top/categories/%E5%8D%9A%E5%AE%A2/</link>
+    <description>Recent content in 博客 on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 20 Oct 2023 22:29:17 +0800</lastBuildDate><atom:link href="https://blog.emath.top/categories/%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于HUGO搭建个人静态博客</title>
+      <link>https://blog.emath.top/post/hugo/hugoblog/</link>
+      <pubDate>Fri, 20 Oct 2023 22:29:17 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/hugo/hugoblog/</guid>
+      <description>&lt;p&gt;记录使用hugo如何快速搭建个人博客在本地运行，记录hugo相关内容作为日后使用及扩展做好准备。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
