@@ -6,63 +6,10 @@
     <description>Recent content on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 20 Oct 2023 22:29:17 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Oct 2023 20:37:40 +0800</lastBuildDate>
     
         <atom:link href="https://blog.emath.top/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>个人博客缘起</title>
-      <link>https://blog.emath.top/post/origin/</link>
-      <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
-      
-      <guid>https://blog.emath.top/post/origin/</guid>
-      
-        <description>&lt;p&gt;记录自己为什么要写博客及围绕博客这个主题将会做些什么。&lt;/p&gt;
-&lt;h2 id=&#34;先提问再起笔&#34;&gt;先提问再起笔&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;为什么要搭建个人博客？&lt;/li&gt;
-&lt;li&gt;会不会是三分钟热度？&lt;/li&gt;
-&lt;li&gt;考虑好记录哪些内容？&lt;/li&gt;
-&lt;li&gt;对于技术选型有哪些思考？&lt;/li&gt;
-&lt;li&gt;有哪些期望和目标？&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;思而答&#34;&gt;思而答&lt;/h2&gt;
-&lt;h3 id=&#34;为什么要搭建个人博客&#34;&gt;为什么要搭建个人博客&lt;/h3&gt;
-&lt;p&gt;首先，搭建博客既有内因也有外因。&lt;/p&gt;
-&lt;p&gt;外因：当前的就业环境并不理想，竞争压力大，可生活压力更大，失业的囧境不敢想象。也受很多博主文章的影响，像是“不要高估一年的成长，更不要低估十年的成长”。外在环境在不断的牵引着我要去学习，去积累，去沉淀。&lt;/p&gt;
-&lt;p&gt;内因：自己本身对研究技术，搭建博客等感兴趣，再者，也不想业余时间沉浸在抖音之类的娱乐上自我消磨。去实践，去将自己学到的，想学的及生活中的感悟记录在册，方便日后查阅。我相信最好的学习方式是输入的同时快速输出实践，否则很难进一步的理解以及容易忘却。&lt;/p&gt;
-&lt;p&gt;综上，个人博客的实践应运而生。&lt;/p&gt;
-&lt;h3 id=&#34;会不会是三分钟热度&#34;&gt;会不会是三分钟热度&lt;/h3&gt;
-&lt;p&gt;确实，很多时候我是三分钟热度，业余生活中容易被其他事情影响，而放弃原本想坚持的事情。我也想通过此方式，告诫自己要养成坚持初心的习惯。不断学习，不断实践，不断记录。&lt;/p&gt;
-&lt;h3 id=&#34;考虑好记录哪些内容&#34;&gt;考虑好记录哪些内容&lt;/h3&gt;
-&lt;p&gt;目前，想记录内容总体分为三大类吧，&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;技术实践&lt;/li&gt;
-&lt;li&gt;学习笔记&lt;/li&gt;
-&lt;li&gt;生活感悟&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;希望养成边学边练边输出的习惯，助力自己更好的学习各项技能。&lt;/p&gt;
-&lt;h3 id=&#34;对于技术选型有哪些思考&#34;&gt;对于技术选型有哪些思考&lt;/h3&gt;
-&lt;p&gt;目前选择了静态博客的方式，因为想快速看到效果，而不是自己花时间去从头搭建一套CMS，当然未来有可能去做这件事。通过hugo快速生成静态页面，通过GitHub Action 串联 GitHub page 的方式，实现一键式部署的方式，边玩边学的心态。&lt;/p&gt;
-&lt;h3 id=&#34;有哪些期望和目标&#34;&gt;有哪些期望和目标&lt;/h3&gt;
-&lt;p&gt;至于期望与目标，短期来看，就想通过这样一种方式养成持续学习的习惯，达到深入理解知识点的目的。明确目标，对系统架构的理解、对基础知识的掌握、对典型应用场景的技术选型有一定的梳理与记录。&lt;/p&gt;
-&lt;h2 id=&#34;结语&#34;&gt;结语&lt;/h2&gt;
-&lt;p&gt;锲而舍之，朽木不折；锲而不舍，金石可镂。&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>关于</title>
-      <link>https://blog.emath.top/about/</link>
-      <pubDate>Tue, 17 Oct 2023 21:38:52 +0800</pubDate>
-      
-      <guid>https://blog.emath.top/about/</guid>
-      
-        <description>&lt;p&gt;学习笔记&lt;/p&gt;
-</description>
-      
-    </item>
     
     <item>
       <title>基于HUGO搭建个人静态博客</title>
@@ -222,6 +169,212 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;五尾注&#34;&gt;五、尾注&lt;/h2&gt;
 &lt;p&gt;这篇文章与我而言其价值在于，先简单记录了基于hugo搭建博客的流程，基于此流程可以更加快速的完成博客的搭建。其次整理了hugo的目录结构，让我对hugo的功能边界及其原理有了初步的认识，为日后能够舒服的使用hugo埋下伏笔，更为日后改善博客主题样式做好了铺垫。当然，我很满意它的构建速度，也想在未来的时候能够去扩展，丰富我的个人博客。希望能够不负当初的愿望，真正实现帮助我学习提升。&lt;/p&gt;
 &lt;p&gt;下一篇内容，计划是梳理关于如何将个人博客部署到网站托管平台。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>个人博客缘起</title>
+      <link>https://blog.emath.top/post/origin/</link>
+      <pubDate>Tue, 17 Oct 2023 22:10:59 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/origin/</guid>
+      
+        <description>&lt;p&gt;记录自己为什么要写博客及围绕博客这个主题将会做些什么。&lt;/p&gt;
+&lt;h2 id=&#34;先提问再起笔&#34;&gt;先提问再起笔&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;为什么要搭建个人博客？&lt;/li&gt;
+&lt;li&gt;会不会是三分钟热度？&lt;/li&gt;
+&lt;li&gt;考虑好记录哪些内容？&lt;/li&gt;
+&lt;li&gt;对于技术选型有哪些思考？&lt;/li&gt;
+&lt;li&gt;有哪些期望和目标？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;思而答&#34;&gt;思而答&lt;/h2&gt;
+&lt;h3 id=&#34;为什么要搭建个人博客&#34;&gt;为什么要搭建个人博客&lt;/h3&gt;
+&lt;p&gt;首先，搭建博客既有内因也有外因。&lt;/p&gt;
+&lt;p&gt;外因：当前的就业环境并不理想，竞争压力大，可生活压力更大，失业的囧境不敢想象。也受很多博主文章的影响，像是“不要高估一年的成长，更不要低估十年的成长”。外在环境在不断的牵引着我要去学习，去积累，去沉淀。&lt;/p&gt;
+&lt;p&gt;内因：自己本身对研究技术，搭建博客等感兴趣，再者，也不想业余时间沉浸在抖音之类的娱乐上自我消磨。去实践，去将自己学到的，想学的及生活中的感悟记录在册，方便日后查阅。我相信最好的学习方式是输入的同时快速输出实践，否则很难进一步的理解以及容易忘却。&lt;/p&gt;
+&lt;p&gt;综上，个人博客的实践应运而生。&lt;/p&gt;
+&lt;h3 id=&#34;会不会是三分钟热度&#34;&gt;会不会是三分钟热度&lt;/h3&gt;
+&lt;p&gt;确实，很多时候我是三分钟热度，业余生活中容易被其他事情影响，而放弃原本想坚持的事情。我也想通过此方式，告诫自己要养成坚持初心的习惯。不断学习，不断实践，不断记录。&lt;/p&gt;
+&lt;h3 id=&#34;考虑好记录哪些内容&#34;&gt;考虑好记录哪些内容&lt;/h3&gt;
+&lt;p&gt;目前，想记录内容总体分为三大类吧，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;技术实践&lt;/li&gt;
+&lt;li&gt;学习笔记&lt;/li&gt;
+&lt;li&gt;生活感悟&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;希望养成边学边练边输出的习惯，助力自己更好的学习各项技能。&lt;/p&gt;
+&lt;h3 id=&#34;对于技术选型有哪些思考&#34;&gt;对于技术选型有哪些思考&lt;/h3&gt;
+&lt;p&gt;目前选择了静态博客的方式，因为想快速看到效果，而不是自己花时间去从头搭建一套CMS，当然未来有可能去做这件事。通过hugo快速生成静态页面，通过GitHub Action 串联 GitHub page 的方式，实现一键式部署的方式，边玩边学的心态。&lt;/p&gt;
+&lt;h3 id=&#34;有哪些期望和目标&#34;&gt;有哪些期望和目标&lt;/h3&gt;
+&lt;p&gt;至于期望与目标，短期来看，就想通过这样一种方式养成持续学习的习惯，达到深入理解知识点的目的。明确目标，对系统架构的理解、对基础知识的掌握、对典型应用场景的技术选型有一定的梳理与记录。&lt;/p&gt;
+&lt;h2 id=&#34;结语&#34;&gt;结语&lt;/h2&gt;
+&lt;p&gt;锲而舍之，朽木不折；锲而不舍，金石可镂。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>实现个人静态博客的全网访问</title>
+      <link>https://blog.emath.top/post/hugo/deployblog/</link>
+      <pubDate>Sun, 22 Oct 2023 20:37:40 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/hugo/deployblog/</guid>
+      
+        <description>&lt;p&gt;记录通过Vercel及GitHub Pages两种方式实现静态博客的部署及实现网站被搜索引擎收录，是上文&lt;a href=&#34;../hugoblog/&#34;&gt;基于HUGO搭建个人静态博客&lt;/a&gt;的后续工作。&lt;/p&gt;
+&lt;h2 id=&#34;一背景&#34;&gt;一、背景&lt;/h2&gt;
+&lt;p&gt;写博客的初衷，首先是方便自己查阅其次是可以给大家提供参考，所以需要将自己在本地搭建好的服务部署至云平台，方便随时访问。&lt;/p&gt;
+&lt;p&gt;首先想到的是GitHub Pages，从Github源码仓库中直接创建网站，不过考虑到国内访问GitHub Pages的速度等原因，它无法作为我的首选。其次是部署到自己的云服务器上，但存在配置低且资源有限的情况。最后选择了免费网站托管平台Vercel。&lt;/p&gt;
+&lt;h2 id=&#34;二基于vercel部署静态博客&#34;&gt;二、基于Vercel部署静态博客&lt;/h2&gt;
+&lt;h3 id=&#34;1-vercel简介&#34;&gt;1. Vercel简介&lt;/h3&gt;
+&lt;p&gt;Vercel是一个云服务平台，支持静态和动态网站的部署和上线，当集成GitHub后便可实现当代码推送至GitHub仓库后，自动部署上线网站。具有以下优势：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;个人版免费，并提供免费域名及Https证书。&lt;/li&gt;
+&lt;li&gt;内置黑盒CI/CD，无需过多配置即可实现自动集成部署。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;2-准备工作&#34;&gt;2. 准备工作&lt;/h3&gt;
+&lt;p&gt;将自己在本地&lt;a href=&#34;../hugoblog/&#34;&gt;基于HUGO搭建个人静态博客&lt;/a&gt;项目blog推送至GitHub仓库。
+具体步骤如下：&lt;br&gt;
+&lt;strong&gt;1. 登陆GitHub创建一个私有仓库blog。&lt;/strong&gt;&lt;br&gt;
+拿到仓库地址:https://github.com/youself/blog.git&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. .gitignore文件中添加public目录。&lt;/strong&gt; &lt;br&gt;
+public目录作为hugo转换生成的结果，不能作为源码提交至Github。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 删除themes/jane目录下的.git文件。&lt;/strong&gt;&lt;br&gt;
+jane是从Github上clone下来的，会有.git文件，推送代码时内层目录有.git文件，会被识别为另一个git仓库并不会上传该目录只会上传一个软链文件，这样会影响Vercel拉取主题信息从而导致转换失败。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 到本地blog项目目录下，依次执行执行以下命令，推送代码至远程仓库。&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;// 1.添加远程仓库
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add remote origin https://github.com/youself/blog.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;// 2.拉取远程代码（创建时可能会生成一个 README.md 文件）
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git pull
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;// 3.本地代码添加到暂存区
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add .
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;// 4.提交代码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;第一次提交&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;// 5.推送至远程仓库
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git push
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-实践步骤&#34;&gt;3. 实践步骤&lt;/h3&gt;
+&lt;h4 id=&#34;基本步骤&#34;&gt;基本步骤：&lt;/h4&gt;
+&lt;p&gt;按照下面步骤即可完成blog在Vercel平台的部署，Vercel会自动给我们分配域名，使用提供的网址即可访问。&lt;br&gt;
+&lt;strong&gt;1. 注册 &lt;a href=&#34;https://vercel.com/signup&#34;&gt;Vercel&lt;/a&gt; 账号&lt;/strong&gt;&lt;br&gt;
+选择 Hobby 类型 &amp;gt; 输入名称 &amp;gt; 下一步 &amp;gt; 使用GitHub账号认证即可。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 新建项目&lt;/strong&gt;&lt;br&gt;
+Add New &amp;gt; Project&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 导入Git仓库&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 导入知道项目blog&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. 配置项目&lt;/strong&gt;&lt;br&gt;
+选择框架Hugo &amp;gt; 构建命令 &lt;code&gt;hugo&lt;/code&gt; &amp;gt; 输出目录public &amp;gt; 环境变量添加HUGO_VERSION:(hugo version 结果) &amp;gt; 部署&lt;br&gt;
+&lt;img src=&#34;./images/vercel_config.png&#34; alt=&#34;Vercel配置&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;使用自己域名&#34;&gt;使用自己域名：&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;1. 选择刚刚部署的项目&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;2. 点击Domain进入Domain设置页面&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;3. 输入事先准备的CNAME类型的域名&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;4. 点击Add&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;完成上述步骤即可使用自己的域名访问Vercel上部署的博客。&lt;/p&gt;
+&lt;h3 id=&#34;4-总结&#34;&gt;4. 总结&lt;/h3&gt;
+&lt;p&gt;至此，我们已经完成个人博客的云部署任务，也实现了个人静态博客的全网访问。简单上手体验了Vercel不禁想给它点赞，主要在以下几个方面，一是部署简单，二是访问快速，最后它还完全免费。&lt;/p&gt;
+&lt;h2 id=&#34;三基于github-pages部署静态博客&#34;&gt;三、基于GitHub Pages部署静态博客&lt;/h2&gt;
+&lt;h3 id=&#34;1-选择原因&#34;&gt;1. 选择原因&lt;/h3&gt;
+&lt;p&gt;既然已经选择了Vercel，理论上云部署的任务已经完成，为什么又选择了GitHub Pages？&lt;/p&gt;
+&lt;p&gt;是的，Vercel已经帮我实现了目标且很方便，选择GitHub Pages是因为GitHub Action，我没有用过它。之前接触CI/CD的流水线是基于其他仓库及其他工具，所以我想利用这个机会亲自实践感受一下GitHub Action。&lt;/p&gt;
+&lt;h3 id=&#34;2-实践步骤&#34;&gt;2. 实践步骤&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;1. 创建一个以{用户名}.github.io命名的公有仓库。&lt;/strong&gt; &lt;br&gt;
+该仓库不能选择私有仓库否则将无法访问。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 创建GitHub个人访问令牌。&lt;/strong&gt;&lt;br&gt;
+登陆GitHub &amp;gt; 点击用户头像 &amp;gt; Settings &amp;gt; Developer Settings &amp;gt; Personal access tokens &amp;gt; Tokens &amp;gt; Generate new token (classic)&amp;gt; 输入密码 &amp;gt; 输入 Token name 、 Expiration &amp;gt; 勾选repo及workflow权限 &amp;gt;  Generate token &amp;gt; 复制&lt;strong&gt;令牌&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 为私有仓库blog创建Action secrets&lt;/strong&gt;&lt;br&gt;
+打开私有库 &amp;gt; Settings &amp;gt; Secrets and variables &amp;gt; Actions &amp;gt; New repository Secrets&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Name : ACCESS_TOKEN&lt;/li&gt;
+&lt;li&gt;Secret : 令牌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;点击 Add secret 即可生成。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 为私有仓库blog创建Action&lt;/strong&gt;&lt;br&gt;
+打开私有库 &amp;gt; Action &amp;gt; New workflow &amp;gt;  set up a workflow yourself&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. 编辑main.yml文件并提交&lt;/strong&gt;&lt;br&gt;
+可以给该文件重命名，下面为参考模板。将模板内容修改好后提交，就会在yourname.github.io仓库生成一个新的分支gh-pages，并将转换的public目录下的文件推送至该分支。以后每次往私有库main分支提交代码都会触发该事件，将最新生成的博客更新至yourname.github.io仓库。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;GitHub Pages&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;on&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;push&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;branches&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         - &lt;span style=&#34;color:#ae81ff&#34;&gt;main &lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 博客根目录的默认分支，这里是main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;pull_request&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;jobs&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;deploy&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;runs-on&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;ubuntu-20.04&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;concurrency&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${{ github.workflow }}-${{ github.ref }}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;steps&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         - &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;actions/checkout@v2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#f92672&#34;&gt;submodules&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#f92672&#34;&gt;fetch-depth&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Setup Hugo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;peaceiris/actions-hugo@v2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#f92672&#34;&gt;hugo-version&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0.119.0&amp;#39;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# 填写你的hugo版本，可用hugo version查看&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#f92672&#34;&gt;extended&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;           &lt;span style=&#34;color:#75715e&#34;&gt;# 如果你使用的不是extended版本的hugo，将true改为false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Build&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;run&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;hugo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deploy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;peaceiris/actions-gh-pages@v3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;if&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${{ github.ref == &amp;#39;refs/heads/main&amp;#39; }} &lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 注意填写main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#f92672&#34;&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#f92672&#34;&gt;personal_token&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${{ secrets.ACCESS_TOKEN}}&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 如果secret取了其他名称，将ACCESS_TOKEN替换掉&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#f92672&#34;&gt;external_repository&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;yourname/yourname.github.io&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 填写远程仓库，不一定是这个格式，按照自己的情况写 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#f92672&#34;&gt;publish_dir&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;./public&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              &lt;span style=&#34;color:#75715e&#34;&gt;#cname: www.example.com        # 填写你的自定义域名。如果没有用自定义域名，注释掉这行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;6. 配置yourname.github.io仓库GitHub Pages&lt;/strong&gt;&lt;br&gt;
+打开公有库 &amp;gt; Settings &amp;gt; Pages &amp;gt; Branch 选择gh-pages 分支 &amp;gt; 点击Visit site 即可访问基于GitHub Pages 托管的博客网站。&lt;/p&gt;
+&lt;h3 id=&#34;3-总结&#34;&gt;3. 总结&lt;/h3&gt;
+&lt;p&gt;参照上述步骤完成了基于GitHub Pages托管博客网站。以后每次往blog私有库mian分支推送代码都可以自动实现上述2个网站内容的自动更新，至此我的个人博客主流程也就告一段落了。&lt;/p&gt;
+&lt;h2 id=&#34;四关联搜索引擎&#34;&gt;四、关联搜索引擎&lt;/h2&gt;
+&lt;p&gt;上面步骤已经实现了输入网址访问博客，如果希望能大家通过搜索引擎检索到自己的博客，那么还需要让搜索引擎收录我们的博客。下面会选择谷歌和百度两种方式。&lt;/p&gt;
+&lt;h3 id=&#34;1-谷歌收录&#34;&gt;1. 谷歌收录&lt;/h3&gt;
+&lt;p&gt;查看&lt;a href=&#34;https://gs.statcounter.com/search-engine-market-share&#34;&gt;statcounter网站&lt;/a&gt;可以看到过去一年全球浏览器市场份额，谷歌是遥遥领先的。所以谷歌理所当然成了首选。&lt;/p&gt;
+&lt;p&gt;下面会整理谷歌收录步骤：&lt;br&gt;
+&lt;strong&gt;1. &lt;a href=&#34;https://search.google.com/search-console/welcome?hl=zh-CN&#34;&gt;打开谷歌收录网站&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 选择网址前缀配置方式&lt;/strong&gt;&lt;br&gt;
+输入博客网址 &amp;gt; 继续&lt;br&gt;
+&lt;img src=&#34;images/google_config.png&#34; alt=&#34;配置&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 网站验证&lt;/strong&gt;&lt;br&gt;
+需要验证该网站是我们的，有多种验证方式，我们选择HTML文件的方式。&lt;br&gt;
+下载此文件 &amp;gt; 保存至blog/static目录下&lt;br&gt;
+当执行hugo转换命令时就会将该文件转换至public目录下，我们就达到了验证的目的。&lt;br&gt;
+&lt;img src=&#34;images/google_checking.png&#34; alt=&#34;验证&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 提交站点地图&lt;/strong&gt;&lt;br&gt;
+Sitemaps &amp;gt; 输入 sitemap.xml&lt;br&gt;
+sitemap.xml 为站点地图，hugo转换生成的public目录下有该文件。&lt;br&gt;
+&lt;img src=&#34;images/google_sitemap.png&#34; alt=&#34;站点地图&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. 收录成功&lt;/strong&gt;&lt;br&gt;
+一段时间后可以通过谷歌检索site:yourwebsite.com来确定收录情况及查阅浏览情况。&lt;/p&gt;
+&lt;h3 id=&#34;2-百度收录&#34;&gt;2. 百度收录&lt;/h3&gt;
+&lt;p&gt;国内更多的是使用百度，所以第二个选择了被百度收录。
+百度收录步骤与谷歌类似其中&lt;a href=&#34;https://ziyuan.baidu.com/site/index&#34;&gt;百度收录网站&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;五尾注&#34;&gt;五、尾注&lt;/h2&gt;
+&lt;p&gt;结合&lt;a href=&#34;post/hugo/hugoblog/&#34;&gt;上篇文章&lt;/a&gt;已经完成个人博客服务的完整流程，这个过程让我意识到当前云服务的强大，切实感受到了在不用关心底层架构的便利性。持续集成与持续部署带来的体验便是编码人员或是创作人员，只需要编写代码提交代码，其他的交由CI/CD流水线帮我们编译、部署、上线。&lt;/p&gt;
+&lt;p&gt;接下来的创作灵感，也可以基于强大的云平台助力自己的idea快速实现，配置固定的流水线帮助自己快速集成发布减少重复性工作。既然关于“博客”话题的整理流程已经梳理完毕，关于使用的细节等内容可能短期内不再梳理，得等到合适的时机。&lt;/p&gt;
+&lt;p&gt;最后附上博客部署的简略流程：&lt;br&gt;
+&lt;img src=&#34;images/flow.png&#34; alt=&#34;流程&#34;&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>https://blog.emath.top/about/</link>
+      <pubDate>Tue, 17 Oct 2023 21:38:52 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/about/</guid>
+      
+        <description>&lt;p&gt;学习笔记&lt;/p&gt;
+</description>
       
     </item>
     

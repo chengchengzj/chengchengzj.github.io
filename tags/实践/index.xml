@@ -6,7 +6,7 @@
     <description>Recent content in 实践 on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 20 Oct 2023 22:29:17 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/%E5%AE%9E%E8%B7%B5/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Oct 2023 20:37:40 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/%E5%AE%9E%E8%B7%B5/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于HUGO搭建个人静态博客</title>
       <link>https://blog.emath.top/post/hugo/hugoblog/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://blog.emath.top/post/hugo/hugoblog/</guid>
       <description>&lt;p&gt;记录使用hugo如何快速搭建个人博客在本地运行，记录hugo相关内容作为日后使用及扩展做好准备。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>实现个人静态博客的全网访问</title>
+      <link>https://blog.emath.top/post/hugo/deployblog/</link>
+      <pubDate>Sun, 22 Oct 2023 20:37:40 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/hugo/deployblog/</guid>
+      <description>&lt;p&gt;记录通过Vercel及GitHub Pages两种方式实现静态博客的部署及实现网站被搜索引擎收录，是上文&lt;a href=&#34;../hugoblog/&#34;&gt;基于HUGO搭建个人静态博客&lt;/a&gt;的后续工作。&lt;/p&gt;</description>
     </item>
     
   </channel>

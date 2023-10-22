@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html
+  lang="zh-cn"
+  itemscope
+  itemtype="http://schema.org/WebPage"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+          实现个人静态博客的全网访问 - 个人学习笔记
+        </title>
+    
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="cc" />
+  <meta name="description" content="记录通过Vercel及GitHub Pages两种方式实现静态博客的部署及实现网站被搜索引擎收录，是上文基于HUGO搭建个人静态博客的后续工作。
+" />
+<meta name="keywords" content="博客, hugo" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0" />
+
+
+<link rel="canonical" href="https://blog.emath.top/post/hugo/deployblog/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.d8d87b982993a745e5e7b6a6cbf257be8c3e82aab5e485f0908ad7e6c3501ab2.css" integrity="sha256-2Nh7mCmTp0Xl57amy/JXvow&#43;gqq15IXwkIrX5sNQGrI=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+
+
+<meta property="og:title" content="实现个人静态博客的全网访问" />
+<meta property="og:description" content="记录通过Vercel及GitHub Pages两种方式实现静态博客的部署及实现网站被搜索引擎收录，是上文基于HUGO搭建个人静态博客的后续工作。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.emath.top/post/hugo/deployblog/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-10-22T20:37:40+08:00" />
+<meta property="article:modified_time" content="2023-10-22T20:37:40+08:00" />
+<meta itemprop="name" content="实现个人静态博客的全网访问">
+<meta itemprop="description" content="记录通过Vercel及GitHub Pages两种方式实现静态博客的部署及实现网站被搜索引擎收录，是上文基于HUGO搭建个人静态博客的后续工作。"><meta itemprop="datePublished" content="2023-10-22T20:37:40+08:00" />
+<meta itemprop="dateModified" content="2023-10-22T20:37:40+08:00" />
+<meta itemprop="wordCount" content="2905">
+<meta itemprop="keywords" content="hugo,实践,博客," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="实现个人静态博客的全网访问"/>
+<meta name="twitter:description" content="记录通过Vercel及GitHub Pages两种方式实现静态博客的部署及实现网站被搜索引擎收录，是上文基于HUGO搭建个人静态博客的后续工作。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+  </head>
+  <body>
+    <div id="back-to-top"></div>
+
+    <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">学无止境</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/post/">归档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/about/">关于</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+    
+      
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+
+    
+
+    
+
+
+    <header id="header" class="header">
+      <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      学无止境
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/about/">关于</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+    </header>
+
+    <div id="mobile-panel">
+      <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
+        
+        <header class="post-header">
+          <h1 class="post-title">实现个人静态博客的全网访问</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/about">
+        <span class="post-meta-author-name">
+          cc
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2023-10-22">
+      2023-10-22
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    <span class="post-meta-more">
+        约 2905 字 -
+        预计阅读 6 分钟
+      </span>
+
+    <div class="post-meta-category">
+        <a href="https://blog.emath.top/categories/%E5%8D%9A%E5%AE%A2/"> 博客 </a>
+          
+      </div>
+
+
+    
+    
+
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <p>记录通过Vercel及GitHub Pages两种方式实现静态博客的部署及实现网站被搜索引擎收录，是上文<a href="../hugoblog/">基于HUGO搭建个人静态博客</a>的后续工作。</p>
+<h2 id="一背景">一、背景</h2>
+<p>写博客的初衷，首先是方便自己查阅其次是可以给大家提供参考，所以需要将自己在本地搭建好的服务部署至云平台，方便随时访问。</p>
+<p>首先想到的是GitHub Pages，从Github源码仓库中直接创建网站，不过考虑到国内访问GitHub Pages的速度等原因，它无法作为我的首选。其次是部署到自己的云服务器上，但存在配置低且资源有限的情况。最后选择了免费网站托管平台Vercel。</p>
+<h2 id="二基于vercel部署静态博客">二、基于Vercel部署静态博客</h2>
+<h3 id="1-vercel简介">1. Vercel简介</h3>
+<p>Vercel是一个云服务平台，支持静态和动态网站的部署和上线，当集成GitHub后便可实现当代码推送至GitHub仓库后，自动部署上线网站。具有以下优势：</p>
+<ol>
+<li>个人版免费，并提供免费域名及Https证书。</li>
+<li>内置黑盒CI/CD，无需过多配置即可实现自动集成部署。</li>
+</ol>
+<h3 id="2-准备工作">2. 准备工作</h3>
+<p>将自己在本地<a href="../hugoblog/">基于HUGO搭建个人静态博客</a>项目blog推送至GitHub仓库。
+具体步骤如下：<br>
+<strong>1. 登陆GitHub创建一个私有仓库blog。</strong><br>
+拿到仓库地址:https://github.com/youself/blog.git</p>
+<p><strong>2. .gitignore文件中添加public目录。</strong> <br>
+public目录作为hugo转换生成的结果，不能作为源码提交至Github。</p>
+<p><strong>3. 删除themes/jane目录下的.git文件。</strong><br>
+jane是从Github上clone下来的，会有.git文件，推送代码时内层目录有.git文件，会被识别为另一个git仓库并不会上传该目录只会上传一个软链文件，这样会影响Vercel拉取主题信息从而导致转换失败。</p>
+<p><strong>4. 到本地blog项目目录下，依次执行执行以下命令，推送代码至远程仓库。</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>// 1.添加远程仓库
+</span></span><span style="display:flex;"><span>git add remote origin https://github.com/youself/blog.git
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>// 2.拉取远程代码（创建时可能会生成一个 README.md 文件）
+</span></span><span style="display:flex;"><span>git pull
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>// 3.本地代码添加到暂存区
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>// 4.提交代码
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;第一次提交&#34;</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>// 5.推送至远程仓库
+</span></span><span style="display:flex;"><span>git push
+</span></span></code></pre></div><h3 id="3-实践步骤">3. 实践步骤</h3>
+<h4 id="基本步骤">基本步骤：</h4>
+<p>按照下面步骤即可完成blog在Vercel平台的部署，Vercel会自动给我们分配域名，使用提供的网址即可访问。<br>
+<strong>1. 注册 <a href="https://vercel.com/signup">Vercel</a> 账号</strong><br>
+选择 Hobby 类型 &gt; 输入名称 &gt; 下一步 &gt; 使用GitHub账号认证即可。</p>
+<p><strong>2. 新建项目</strong><br>
+Add New &gt; Project</p>
+<p><strong>3. 导入Git仓库</strong></p>
+<p><strong>4. 导入知道项目blog</strong></p>
+<p><strong>5. 配置项目</strong><br>
+选择框架Hugo &gt; 构建命令 <code>hugo</code> &gt; 输出目录public &gt; 环境变量添加HUGO_VERSION:(hugo version 结果) &gt; 部署<br>
+<img src="./images/vercel_config.png" alt="Vercel配置"></p>
+<h4 id="使用自己域名">使用自己域名：</h4>
+<p><strong>1. 选择刚刚部署的项目</strong><br>
+<strong>2. 点击Domain进入Domain设置页面</strong><br>
+<strong>3. 输入事先准备的CNAME类型的域名</strong><br>
+<strong>4. 点击Add</strong></p>
+<p>完成上述步骤即可使用自己的域名访问Vercel上部署的博客。</p>
+<h3 id="4-总结">4. 总结</h3>
+<p>至此，我们已经完成个人博客的云部署任务，也实现了个人静态博客的全网访问。简单上手体验了Vercel不禁想给它点赞，主要在以下几个方面，一是部署简单，二是访问快速，最后它还完全免费。</p>
+<h2 id="三基于github-pages部署静态博客">三、基于GitHub Pages部署静态博客</h2>
+<h3 id="1-选择原因">1. 选择原因</h3>
+<p>既然已经选择了Vercel，理论上云部署的任务已经完成，为什么又选择了GitHub Pages？</p>
+<p>是的，Vercel已经帮我实现了目标且很方便，选择GitHub Pages是因为GitHub Action，我没有用过它。之前接触CI/CD的流水线是基于其他仓库及其他工具，所以我想利用这个机会亲自实践感受一下GitHub Action。</p>
+<h3 id="2-实践步骤">2. 实践步骤</h3>
+<p><strong>1. 创建一个以{用户名}.github.io命名的公有仓库。</strong> <br>
+该仓库不能选择私有仓库否则将无法访问。</p>
+<p><strong>2. 创建GitHub个人访问令牌。</strong><br>
+登陆GitHub &gt; 点击用户头像 &gt; Settings &gt; Developer Settings &gt; Personal access tokens &gt; Tokens &gt; Generate new token (classic)&gt; 输入密码 &gt; 输入 Token name 、 Expiration &gt; 勾选repo及workflow权限 &gt;  Generate token &gt; 复制<strong>令牌</strong></p>
+<p><strong>3. 为私有仓库blog创建Action secrets</strong><br>
+打开私有库 &gt; Settings &gt; Secrets and variables &gt; Actions &gt; New repository Secrets</p>
+<ul>
+<li>Name : ACCESS_TOKEN</li>
+<li>Secret : 令牌</li>
+</ul>
+<p>点击 Add secret 即可生成。</p>
+<p><strong>4. 为私有仓库blog创建Action</strong><br>
+打开私有库 &gt; Action &gt; New workflow &gt;  set up a workflow yourself</p>
+<p><strong>5. 编辑main.yml文件并提交</strong><br>
+可以给该文件重命名，下面为参考模板。将模板内容修改好后提交，就会在yourname.github.io仓库生成一个新的分支gh-pages，并将转换的public目录下的文件推送至该分支。以后每次往私有库main分支提交代码都会触发该事件，将最新生成的博客更新至yourname.github.io仓库。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">GitHub Pages</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>         - <span style="color:#ae81ff">main </span> <span style="color:#75715e"># 博客根目录的默认分支，这里是main</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">deploy</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-20.04</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">concurrency</span>:
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">group</span>: <span style="color:#ae81ff">${{ github.workflow }}-${{ github.ref }}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>         - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">submodules</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">fetch-depth</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup Hugo</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#39;0.119.0&#39;</span>  <span style="color:#75715e"># 填写你的hugo版本，可用hugo version查看</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">extended</span>: <span style="color:#66d9ef">true</span>           <span style="color:#75715e"># 如果你使用的不是extended版本的hugo，将true改为false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>         - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-gh-pages@v3</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">if</span>: <span style="color:#ae81ff">${{ github.ref == &#39;refs/heads/main&#39; }} </span> <span style="color:#75715e"># 注意填写main</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">personal_token</span>: <span style="color:#ae81ff">${{ secrets.ACCESS_TOKEN}}</span> <span style="color:#75715e"># 如果secret取了其他名称，将ACCESS_TOKEN替换掉</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">external_repository</span>: <span style="color:#ae81ff">yourname/yourname.github.io</span> <span style="color:#75715e"># 填写远程仓库，不一定是这个格式，按照自己的情况写 </span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">publish_dir</span>: <span style="color:#ae81ff">./public</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">#cname: www.example.com        # 填写你的自定义域名。如果没有用自定义域名，注释掉这行</span>
+</span></span></code></pre></div><p><strong>6. 配置yourname.github.io仓库GitHub Pages</strong><br>
+打开公有库 &gt; Settings &gt; Pages &gt; Branch 选择gh-pages 分支 &gt; 点击Visit site 即可访问基于GitHub Pages 托管的博客网站。</p>
+<h3 id="3-总结">3. 总结</h3>
+<p>参照上述步骤完成了基于GitHub Pages托管博客网站。以后每次往blog私有库mian分支推送代码都可以自动实现上述2个网站内容的自动更新，至此我的个人博客主流程也就告一段落了。</p>
+<h2 id="四关联搜索引擎">四、关联搜索引擎</h2>
+<p>上面步骤已经实现了输入网址访问博客，如果希望能大家通过搜索引擎检索到自己的博客，那么还需要让搜索引擎收录我们的博客。下面会选择谷歌和百度两种方式。</p>
+<h3 id="1-谷歌收录">1. 谷歌收录</h3>
+<p>查看<a href="https://gs.statcounter.com/search-engine-market-share">statcounter网站</a>可以看到过去一年全球浏览器市场份额，谷歌是遥遥领先的。所以谷歌理所当然成了首选。</p>
+<p>下面会整理谷歌收录步骤：<br>
+<strong>1. <a href="https://search.google.com/search-console/welcome?hl=zh-CN">打开谷歌收录网站</a></strong></p>
+<p><strong>2. 选择网址前缀配置方式</strong><br>
+输入博客网址 &gt; 继续<br>
+<img src="images/google_config.png" alt="配置"></p>
+<p><strong>3. 网站验证</strong><br>
+需要验证该网站是我们的，有多种验证方式，我们选择HTML文件的方式。<br>
+下载此文件 &gt; 保存至blog/static目录下<br>
+当执行hugo转换命令时就会将该文件转换至public目录下，我们就达到了验证的目的。<br>
+<img src="images/google_checking.png" alt="验证"></p>
+<p><strong>4. 提交站点地图</strong><br>
+Sitemaps &gt; 输入 sitemap.xml<br>
+sitemap.xml 为站点地图，hugo转换生成的public目录下有该文件。<br>
+<img src="images/google_sitemap.png" alt="站点地图"></p>
+<p><strong>5. 收录成功</strong><br>
+一段时间后可以通过谷歌检索site:yourwebsite.com来确定收录情况及查阅浏览情况。</p>
+<h3 id="2-百度收录">2. 百度收录</h3>
+<p>国内更多的是使用百度，所以第二个选择了被百度收录。
+百度收录步骤与谷歌类似其中<a href="https://ziyuan.baidu.com/site/index">百度收录网站</a></p>
+<h2 id="五尾注">五、尾注</h2>
+<p>结合<a href="post/hugo/hugoblog/">上篇文章</a>已经完成个人博客服务的完整流程，这个过程让我意识到当前云服务的强大，切实感受到了在不用关心底层架构的便利性。持续集成与持续部署带来的体验便是编码人员或是创作人员，只需要编写代码提交代码，其他的交由CI/CD流水线帮我们编译、部署、上线。</p>
+<p>接下来的创作灵感，也可以基于强大的云平台助力自己的idea快速实现，配置固定的流水线帮助自己快速集成发布减少重复性工作。既然关于“博客”话题的整理流程已经梳理完毕，关于使用的细节等内容可能短期内不再梳理，得等到合适的时机。</p>
+<p>最后附上博客部署的简略流程：<br>
+<img src="images/flow.png" alt="流程"></p>
+        </div>
+
+        
+        
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          <div class="post-tags">
+              <a href="https://blog.emath.top/tags/hugo/">hugo</a>
+                <a href="https://blog.emath.top/tags/%E5%AE%9E%E8%B7%B5/">实践</a>
+                <a href="https://blog.emath.top/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
+                
+            </div>
+
+
+          
+          <nav class="post-nav">
+            
+              <a class="prev" href="/post/origin/">
+                
+                <i class="iconfont">
+                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+                </i>
+                <span class="prev-text nav-default">个人博客缘起</span>
+                <span class="prev-text nav-mobile">上一篇</span>
+              </a>
+            
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+
+    </div>
+
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">文章目录</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一背景">一、背景</a></li>
+    <li><a href="#二基于vercel部署静态博客">二、基于Vercel部署静态博客</a>
+      <ul>
+        <li><a href="#1-vercel简介">1. Vercel简介</a></li>
+        <li><a href="#2-准备工作">2. 准备工作</a></li>
+        <li><a href="#3-实践步骤">3. 实践步骤</a></li>
+        <li><a href="#4-总结">4. 总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#三基于github-pages部署静态博客">三、基于GitHub Pages部署静态博客</a>
+      <ul>
+        <li><a href="#1-选择原因">1. 选择原因</a></li>
+        <li><a href="#2-实践步骤">2. 实践步骤</a></li>
+        <li><a href="#3-总结">3. 总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#四关联搜索引擎">四、关联搜索引擎</a>
+      <ul>
+        <li><a href="#1-谷歌收录">1. 谷歌收录</a></li>
+        <li><a href="#2-百度收录">2. 百度收录</a></li>
+      </ul>
+    </li>
+    <li><a href="#五尾注">五、尾注</a></li>
+  </ul>
+</nav>
+    </div>
+  </nav>
+
+
+  </div>
+
+      </main>
+
+      <footer id="footer" class="footer">
+        <div class="icon-links">
+  
+
+
+<a href="https://blog.emath.top/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2023
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        chengcheng
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+      </footer>
+
+      <div class="button__back-to-top">
+        <a href="#back-to-top">
+          <i class="iconfont">
+            
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+          </i>
+        </a>
+      </div>
+    </div>
+    
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.65bd29307f50a0fe07557f0c161b56cec2c19af4c8c64da7bbd4b055fd3c2ab5.js" integrity="sha256-Zb0pMH9QoP4HVX8MFhtWzsLBmvTIxk2nu9SwVf08KrU=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
