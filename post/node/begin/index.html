@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>
-          个人博客缘起 - 个人学习笔记
+          Node.js开篇 - 个人学习笔记
         </title>
     
 
@@ -28,7 +28,9 @@
 
 <meta name="mobile-web-app-capable" content="yes">
 
-<meta name="author" content="cc" /><meta name="description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。" />
+<meta name="author" content="cc" />
+  <meta name="description" content="记录 Node.js 的第一篇博客，主要记录了Node.js的组成与特点。
+" />
 
   <meta name="keywords" content="Hugo, Blog, Note" />
 
@@ -40,7 +42,7 @@
 <meta name="generator" content="Hugo 0.119.0" />
 
 
-<link rel="canonical" href="https://blog.emath.top/post/origin/" />
+<link rel="canonical" href="https://blog.emath.top/post/node/begin/" />
 
 
 
@@ -66,19 +68,19 @@
 
 
 
-<meta property="og:title" content="个人博客缘起" />
-<meta property="og:description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。" />
+<meta property="og:title" content="Node.js开篇" />
+<meta property="og:description" content="记录 Node.js 的第一篇博客，主要记录了Node.js的组成与特点。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.emath.top/post/origin/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-10-17T22:10:59+08:00" />
-<meta property="article:modified_time" content="2023-10-17T22:10:59+08:00" />
-<meta itemprop="name" content="个人博客缘起">
-<meta itemprop="description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。"><meta itemprop="datePublished" content="2023-10-17T22:10:59+08:00" />
-<meta itemprop="dateModified" content="2023-10-17T22:10:59+08:00" />
-<meta itemprop="wordCount" content="747">
-<meta itemprop="keywords" content="博客,杂文,感悟," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="个人博客缘起"/>
-<meta name="twitter:description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。"/>
+<meta property="og:url" content="https://blog.emath.top/post/node/begin/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-10-29T19:51:19+08:00" />
+<meta property="article:modified_time" content="2023-10-29T19:51:19+08:00" />
+<meta itemprop="name" content="Node.js开篇">
+<meta itemprop="description" content="记录 Node.js 的第一篇博客，主要记录了Node.js的组成与特点。"><meta itemprop="datePublished" content="2023-10-29T19:51:19+08:00" />
+<meta itemprop="dateModified" content="2023-10-29T19:51:19+08:00" />
+<meta itemprop="wordCount" content="1068">
+<meta itemprop="keywords" content="Node.js,学习笔记," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Node.js开篇"/>
+<meta name="twitter:description" content="记录 Node.js 的第一篇博客，主要记录了Node.js的组成与特点。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -301,7 +303,7 @@
       <article class="post">
         
         <header class="post-header">
-          <h1 class="post-title">个人博客缘起</h1>
+          <h1 class="post-title">Node.js开篇</h1>
           
 
           <div class="post-meta">
@@ -316,8 +318,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2023-10-17">
-      2023-10-17
+    <time datetime="2023-10-29">
+      2023-10-29
     </time>
   </div>
 
@@ -326,12 +328,12 @@
 
   <div class="post-meta__right">
     <span class="post-meta-more">
-        约 747 字 -
-        预计阅读 2 分钟
+        约 1068 字 -
+        预计阅读 3 分钟
       </span>
 
     <div class="post-meta-category">
-        <a href="https://blog.emath.top/categories/%E6%84%9F%E6%82%9F/"> 感悟 </a>
+        <a href="https://blog.emath.top/categories/node.js/"> Node.js </a>
           
       </div>
 
@@ -349,37 +351,60 @@
 
         
         <div class="post-content">
-          <p>记录自己为什么要写博客及围绕博客这个主题将会做些什么。</p>
-<h2 id="先提问再起笔">先提问再起笔</h2>
+          <p>记录 Node.js 的第一篇博客，主要记录了Node.js的组成与特点。</p>
+<h2 id="一nodejs简介">一、Node.js简介</h2>
+<p>Node.js是开源跨平台的JavaScript运行环境。基于chrome V8引擎、Libuv库及第三方模块实现的单线程应用。</p>
+<p>其组成架构图如下图：
+<img src="images/architecture.png" alt="组成架构"></p>
+<p>整体分为3个部分：</p>
 <ol>
-<li>为什么要搭建个人博客？</li>
-<li>会不会是三分钟热度？</li>
-<li>考虑好记录哪些内容？</li>
-<li>对于技术选型有哪些思考？</li>
-<li>有哪些期望和目标？</li>
+<li><strong>Node.js 标准库：</strong> <br>
+这部分由 JavaScript 编写的 Node.js 核心模块，供使用者直接引用，位于源码的lib目录。</li>
+<li><strong>Node Bingdings：</strong><br>
+Node.js 程序的 main 函数入口，对底层模块进行封装为标准库提供C++类接口，是 JavaScript 与底层 C/C++ 沟通的桥梁，由 C++ 编写，位于源码的 src 目录。</li>
+<li><strong>最底层：</strong>
+<ol>
+<li><strong>V8 引擎：</strong> 用于解析、执行 JavaScrpit 代码的运行环境。</li>
+<li><strong>libuv：</strong> 提供底层I/O操作接口，包括文件异步I/O线程池和网络的I/O操作，是整个异步I/O实现的核心，由 C/C++ 编写，位于源码的 deps 目录。</li>
+<li><strong>其他 C/C++ 组件和库</strong>：如 c-ares、http_parser 等，这些依赖提供了对系统底层功能的访问。</li>
 </ol>
-<h2 id="思而答">思而答</h2>
-<h3 id="为什么要搭建个人博客">为什么要搭建个人博客</h3>
-<p>首先，搭建博客既有内因也有外因。</p>
-<p>外因：当前的就业环境并不理想，竞争压力大，可生活压力更大，失业的囧境不敢想象。也受很多博主文章的影响，像是“不要高估一年的成长，更不要低估十年的成长”。外在环境在不断的牵引着我要去学习，去积累，去沉淀。</p>
-<p>内因：自己本身对研究技术，搭建博客等感兴趣，再者，也不想业余时间沉浸在抖音之类的娱乐上自我消磨。去实践，去将自己学到的，想学的及生活中的感悟记录在册，方便日后查阅。我相信最好的学习方式是输入的同时快速输出实践，否则很难进一步的理解以及容易忘却。</p>
-<p>综上，个人博客的实践应运而生。</p>
-<h3 id="会不会是三分钟热度">会不会是三分钟热度</h3>
-<p>确实，很多时候我是三分钟热度，业余生活中容易被其他事情影响，而放弃原本想坚持的事情。我也想通过此方式，告诫自己要养成坚持初心的习惯。不断学习，不断实践，不断记录。</p>
-<h3 id="考虑好记录哪些内容">考虑好记录哪些内容</h3>
-<p>目前，想记录内容总体分为三大类吧，</p>
+</li>
+</ol>
+<h2 id="二特点">二、特点</h2>
+<h3 id="1-单线程">1. 单线程</h3>
+<p>传统的 web 服务模型中，大多都使用多线程来解决并发问题。会为每个客户端连接创建一个新的线程，每个线程大约需要消耗2MB内存。理论上，一个8GB内存的服务器可以同时连接最大的用户数为4000个左右。Node.js只有一个主线程，当用户连接时会触发一个内部事件，通过非阻塞I/O、事件驱动机制，实现Node.js程序的并行，一个8GB内存的服务器，可以同时处理4万用户的连接。</p>
+<p>优点：操作系统不再有线程创建、销毁的开销。</p>
+<p>缺点：一个代码某个环节崩溃会导致整个系统的崩溃。</p>
+<h3 id="2-非阻塞io">2. 非阻塞I/O</h3>
+<p>Node.js 采用了非阻塞I/O。例如，像是执行了访问数据库的代码后，将立即执行后面的代码，将数据库返回结果交由回调函数处理，从而提高了程序执行效率。当某个I/O执行完成后，将以事件的形式通知执行I/O操作的线程，线程执行这个事件的回调函数，为了处理异步I/O，线程必须有事件循环，不断的检查有没有未处理的事件，依次处理。</p>
+<p>相反，阻塞模式下，一个线程只能处理一项任务，想要提高吞吐量必须通过多线程的方式。</p>
+<h3 id="3-事件驱动">3. 事件驱动</h3>
+<p>在Node.js中，客户端请求建立连接、调用接口等行为会触发相应的事件。
+<img src="images/eventLoop.png" alt="事件循环"></p>
+<h4 id="31-主线程">3.1 主线程</h4>
+<ol>
+<li>main：启动入口文件，运行主函数。</li>
+<li>event pool：检查是否要进入事件循环。
 <ul>
-<li>技术实践</li>
-<li>学习笔记</li>
-<li>生活感悟</li>
+<li>检查其他线程里是否还有待处理事项。</li>
+<li>检查其他任务是否还在进行中（比如计时器、文件读取操作等任务是否完成）。</li>
+<li>有以上情况，进入事件循环，运行其他任务。
+事件循环的过程：从timer 至 close callbacks整个流程走完，到event loop检查是否结束，没结束继续走一圈。</li>
 </ul>
-<p>希望养成边学边练边输出的习惯，助力自己更好的学习各项技能。</p>
-<h3 id="对于技术选型有哪些思考">对于技术选型有哪些思考</h3>
-<p>目前选择了静态博客的方式，因为想快速看到效果，而不是自己花时间去从头搭建一套CMS，当然未来有可能去做这件事。通过hugo快速生成静态页面，通过GitHub Action 串联 GitHub page 的方式，实现一键式部署的方式，边玩边学的心态。</p>
-<h3 id="有哪些期望和目标">有哪些期望和目标</h3>
-<p>至于期望与目标，短期来看，就想通过这样一种方式养成持续学习的习惯，达到深入理解知识点的目的。明确目标，对系统架构的理解、对基础知识的掌握、对典型应用场景的技术选型有一定的梳理与记录。</p>
-<h2 id="结语">结语</h2>
-<p>锲而舍之，朽木不折；锲而不舍，金石可镂。</p>
+</li>
+<li>over：所有事件都结束。</li>
+</ol>
+<h4 id="32-事件循环">3.2 事件循环</h4>
+<p><img src="images/eventLoopFlow.png" alt="事件循环流程图"></p>
+<h2 id="三nodejs适用场景">三、Node.js适用场景</h2>
+<ol>
+<li><strong>I/O密集型场景</strong></li>
+<li><strong>RestFul API</strong></li>
+<li><strong>RPC 服务</strong></li>
+<li><strong>BBF</strong></li>
+<li><strong>Serverless</strong></li>
+<li><strong>微服务</strong></li>
+</ol>
         </div>
 
         
@@ -393,9 +418,8 @@
 
         <footer class="post-footer">
           <div class="post-tags">
-              <a href="https://blog.emath.top/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
-                <a href="https://blog.emath.top/tags/%E6%9D%82%E6%96%87/">杂文</a>
-                <a href="https://blog.emath.top/tags/%E6%84%9F%E6%82%9F/">感悟</a>
+              <a href="https://blog.emath.top/tags/node.js/">Node.js</a>
+                <a href="https://blog.emath.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                 
             </div>
 
@@ -403,22 +427,9 @@
           
           <nav class="post-nav">
             
-              <a class="prev" href="/post/hugo/hugoblog/">
-                
-                <i class="iconfont">
-                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
-</svg>
-
-                </i>
-                <span class="prev-text nav-default">基于HUGO搭建个人静态博客</span>
-                <span class="prev-text nav-mobile">上一篇</span>
-              </a>
             
-              <a class="next" href="/post/hugo/deployblog/">
-                <span class="next-text nav-default">实现个人静态博客的全网访问</span>
+              <a class="next" href="/post/hugo/hugoblog/">
+                <span class="next-text nav-default">基于HUGO搭建个人静态博客</span>
                 <span class="prev-text nav-mobile">下一篇</span>
                 
                 <i class="iconfont">
@@ -450,17 +461,15 @@
     <div class="toc-content custom-scrollbar">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#先提问再起笔">先提问再起笔</a></li>
-    <li><a href="#思而答">思而答</a>
+    <li><a href="#一nodejs简介">一、Node.js简介</a></li>
+    <li><a href="#二特点">二、特点</a>
       <ul>
-        <li><a href="#为什么要搭建个人博客">为什么要搭建个人博客</a></li>
-        <li><a href="#会不会是三分钟热度">会不会是三分钟热度</a></li>
-        <li><a href="#考虑好记录哪些内容">考虑好记录哪些内容</a></li>
-        <li><a href="#对于技术选型有哪些思考">对于技术选型有哪些思考</a></li>
-        <li><a href="#有哪些期望和目标">有哪些期望和目标</a></li>
+        <li><a href="#1-单线程">1. 单线程</a></li>
+        <li><a href="#2-非阻塞io">2. 非阻塞I/O</a></li>
+        <li><a href="#3-事件驱动">3. 事件驱动</a></li>
       </ul>
     </li>
-    <li><a href="#结语">结语</a></li>
+    <li><a href="#三nodejs适用场景">三、Node.js适用场景</a></li>
   </ul>
 </nav>
     </div>

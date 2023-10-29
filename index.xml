@@ -6,10 +6,74 @@
     <description>Recent content on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Oct 2023 20:37:40 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Oct 2023 19:51:19 +0800</lastBuildDate>
     
         <atom:link href="https://blog.emath.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Node.js开篇</title>
+      <link>https://blog.emath.top/post/node/begin/</link>
+      <pubDate>Sun, 29 Oct 2023 19:51:19 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/node/begin/</guid>
+      
+        <description>&lt;p&gt;记录 Node.js 的第一篇博客，主要记录了Node.js的组成与特点。&lt;/p&gt;
+&lt;h2 id=&#34;一nodejs简介&#34;&gt;一、Node.js简介&lt;/h2&gt;
+&lt;p&gt;Node.js是开源跨平台的JavaScript运行环境。基于chrome V8引擎、Libuv库及第三方模块实现的单线程应用。&lt;/p&gt;
+&lt;p&gt;其组成架构图如下图：
+&lt;img src=&#34;images/architecture.png&#34; alt=&#34;组成架构&#34;&gt;&lt;/p&gt;
+&lt;p&gt;整体分为3个部分：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Node.js 标准库：&lt;/strong&gt; &lt;br&gt;
+这部分由 JavaScript 编写的 Node.js 核心模块，供使用者直接引用，位于源码的lib目录。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Node Bingdings：&lt;/strong&gt;&lt;br&gt;
+Node.js 程序的 main 函数入口，对底层模块进行封装为标准库提供C++类接口，是 JavaScript 与底层 C/C++ 沟通的桥梁，由 C++ 编写，位于源码的 src 目录。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;最底层：&lt;/strong&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;V8 引擎：&lt;/strong&gt; 用于解析、执行 JavaScrpit 代码的运行环境。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;libuv：&lt;/strong&gt; 提供底层I/O操作接口，包括文件异步I/O线程池和网络的I/O操作，是整个异步I/O实现的核心，由 C/C++ 编写，位于源码的 deps 目录。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其他 C/C++ 组件和库&lt;/strong&gt;：如 c-ares、http_parser 等，这些依赖提供了对系统底层功能的访问。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二特点&#34;&gt;二、特点&lt;/h2&gt;
+&lt;h3 id=&#34;1-单线程&#34;&gt;1. 单线程&lt;/h3&gt;
+&lt;p&gt;传统的 web 服务模型中，大多都使用多线程来解决并发问题。会为每个客户端连接创建一个新的线程，每个线程大约需要消耗2MB内存。理论上，一个8GB内存的服务器可以同时连接最大的用户数为4000个左右。Node.js只有一个主线程，当用户连接时会触发一个内部事件，通过非阻塞I/O、事件驱动机制，实现Node.js程序的并行，一个8GB内存的服务器，可以同时处理4万用户的连接。&lt;/p&gt;
+&lt;p&gt;优点：操作系统不再有线程创建、销毁的开销。&lt;/p&gt;
+&lt;p&gt;缺点：一个代码某个环节崩溃会导致整个系统的崩溃。&lt;/p&gt;
+&lt;h3 id=&#34;2-非阻塞io&#34;&gt;2. 非阻塞I/O&lt;/h3&gt;
+&lt;p&gt;Node.js 采用了非阻塞I/O。例如，像是执行了访问数据库的代码后，将立即执行后面的代码，将数据库返回结果交由回调函数处理，从而提高了程序执行效率。当某个I/O执行完成后，将以事件的形式通知执行I/O操作的线程，线程执行这个事件的回调函数，为了处理异步I/O，线程必须有事件循环，不断的检查有没有未处理的事件，依次处理。&lt;/p&gt;
+&lt;p&gt;相反，阻塞模式下，一个线程只能处理一项任务，想要提高吞吐量必须通过多线程的方式。&lt;/p&gt;
+&lt;h3 id=&#34;3-事件驱动&#34;&gt;3. 事件驱动&lt;/h3&gt;
+&lt;p&gt;在Node.js中，客户端请求建立连接、调用接口等行为会触发相应的事件。
+&lt;img src=&#34;images/eventLoop.png&#34; alt=&#34;事件循环&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;31-主线程&#34;&gt;3.1 主线程&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;main：启动入口文件，运行主函数。&lt;/li&gt;
+&lt;li&gt;event pool：检查是否要进入事件循环。
+&lt;ul&gt;
+&lt;li&gt;检查其他线程里是否还有待处理事项。&lt;/li&gt;
+&lt;li&gt;检查其他任务是否还在进行中（比如计时器、文件读取操作等任务是否完成）。&lt;/li&gt;
+&lt;li&gt;有以上情况，进入事件循环，运行其他任务。
+事件循环的过程：从timer 至 close callbacks整个流程走完，到event loop检查是否结束，没结束继续走一圈。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;over：所有事件都结束。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;32-事件循环&#34;&gt;3.2 事件循环&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;images/eventLoopFlow.png&#34; alt=&#34;事件循环流程图&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三nodejs适用场景&#34;&gt;三、Node.js适用场景&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;I/O密集型场景&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RestFul API&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RPC 服务&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BBF&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Serverless&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;微服务&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
+      
+    </item>
     
     <item>
       <title>基于HUGO搭建个人静态博客</title>
@@ -373,7 +437,9 @@ sitemap.xml 为站点地图，hugo转换生成的public目录下有该文件。&
       
       <guid>https://blog.emath.top/about/</guid>
       
-        <description>&lt;p&gt;学习笔记&lt;/p&gt;
+        <description>&lt;h2 id=&#34;博客目的&#34;&gt;博客目的&lt;/h2&gt;
+&lt;p&gt;记录自己感兴趣的技术内容与个人实践内容。希望通过博客的方式，养成记笔记的习惯，加深自己对技术的理解。&lt;/p&gt;
+&lt;p&gt;不高估自己一年的成长，也不低估自己十年的成长。不断积累以减缓自己被社会淘汰的速度，生易，活易，生活不易。&lt;/p&gt;
 </description>
       
     </item>

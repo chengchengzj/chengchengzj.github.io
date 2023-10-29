@@ -6,7 +6,25 @@
     <description>Recent content in Tags on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Oct 2023 20:37:40 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Oct 2023 19:51:19 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js</title>
+      <link>https://blog.emath.top/tags/node.js/</link>
+      <pubDate>Sun, 29 Oct 2023 19:51:19 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/tags/node.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>学习笔记</title>
+      <link>https://blog.emath.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 29 Oct 2023 19:51:19 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>hugo</title>
       <link>https://blog.emath.top/tags/hugo/</link>
