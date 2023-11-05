@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 29 Oct 2023 19:51:19 +0800</lastBuildDate><atom:link href="https://blog.emath.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Nov 2023 13:21:55 +0800</lastBuildDate><atom:link href="https://blog.emath.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js应用监控</title>
+      <link>https://blog.emath.top/post/nodeapp/apm/</link>
+      <pubDate>Sun, 05 Nov 2023 13:21:55 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/nodeapp/apm/</guid>
+      <description>&lt;p&gt;整理Node.js应用监控系统相关内容。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Node.js开篇</title>
       <link>https://blog.emath.top/post/node/begin/</link>

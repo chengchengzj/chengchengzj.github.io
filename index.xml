@@ -6,10 +6,198 @@
     <description>Recent content on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 29 Oct 2023 19:51:19 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 Nov 2023 13:21:55 +0800</lastBuildDate>
     
         <atom:link href="https://blog.emath.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Node.js应用监控</title>
+      <link>https://blog.emath.top/post/nodeapp/apm/</link>
+      <pubDate>Sun, 05 Nov 2023 13:21:55 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/nodeapp/apm/</guid>
+      
+        <description>&lt;p&gt;整理Node.js应用监控系统相关内容。&lt;/p&gt;
+&lt;h2 id=&#34;一背景&#34;&gt;一、背景&lt;/h2&gt;
+&lt;p&gt;为了能够很好定位线上问题，提前预知系统存在的隐患与问题，选择引入应用监控系统APM。&lt;/p&gt;
+&lt;h2 id=&#34;二apm&#34;&gt;二、APM&lt;/h2&gt;
+&lt;h3 id=&#34;1-概念&#34;&gt;1. 概念&lt;/h3&gt;
+&lt;p&gt;Application Performance Management (APM) 是监控服务的一套技术手段，致力于监控并管理程序的性能和可用性。&lt;/p&gt;
+&lt;h3 id=&#34;2-作用&#34;&gt;2. 作用&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;实时采集监控数据：包括硬件、操作系统、中间件、应用程序等各个维度的数据。&lt;/li&gt;
+&lt;li&gt;实时反馈监控状态：通过对采集的数据进行多维度统计和可视化展示，能实时体现监控对象的状态是正常还是异常。&lt;/li&gt;
+&lt;li&gt;预知故障和告警：能够提前预知故障风险，并及时发出告警信息。&lt;/li&gt;
+&lt;li&gt;辅助定位故障：提供故障发生时的各项指标数据，辅助故障分析和定位。&lt;/li&gt;
+&lt;li&gt;辅助性能调优：为性能调优提供数据支持，比如慢 SQL，接口响应时间等。&lt;/li&gt;
+&lt;li&gt;辅助容量规划：为服务器、中间件以及应用集群的容量规划提供数据支撑。&lt;/li&gt;
+&lt;li&gt;辅助自动化运维：为自动扩容或者根据配置的 SLA 进行服务降级等智能运维提供数据支撑。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;3-组成原理&#34;&gt;3. 组成原理&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Agent: 用于上报数据&lt;/li&gt;
+&lt;li&gt;Monitor: 用于收集数据&lt;/li&gt;
+&lt;li&gt;Dashboard: 用于展示数据&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;4-apm形态&#34;&gt;4. APM形态&lt;/h3&gt;
+&lt;h4 id=&#34;41-服务器性能指标监控&#34;&gt;4.1 服务器性能指标监控&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;对服务依赖的硬件性能进行监控，如CPU、内存、硬盘容量。&lt;/li&gt;
+&lt;li&gt;监控服务器性能指标的实时值，用于出紧急问题时及时报警。&lt;/li&gt;
+&lt;li&gt;监控历史趋势，可以观察每天的访问情况及对异常点进行分析。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;42-服务监控&#34;&gt;4.2 服务监控&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;对提供的服务进行监控。&lt;/li&gt;
+&lt;li&gt;检测服务情况，如请求数，响应数，成功率。&lt;/li&gt;
+&lt;li&gt;监测服务的热点，异常波动。&lt;/li&gt;
+&lt;li&gt;监测服务来源，调用方分布。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;43-错误异常监控&#34;&gt;4.3 错误异常监控&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;对报错或异常进行监控。&lt;/li&gt;
+&lt;li&gt;一般需要主动上报。&lt;/li&gt;
+&lt;li&gt;需要提供大量上下文信息才有意义，如当时的URL，错误堆栈等。&lt;/li&gt;
+&lt;li&gt;价值与错误信息多少成正比。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;44-日志收集&#34;&gt;4.4 日志收集&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;对服务的所有情况进行记录，日志是必不可少的。&lt;/li&gt;
+&lt;li&gt;日志查询分析困难，所以APM一般都有日志收集和分析能力。&lt;/li&gt;
+&lt;li&gt;占空间，定期清理。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;45-依赖监控&#34;&gt;4.5 依赖监控&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;对服务的依赖进行监控，如数据库、缓存、外部服务。&lt;/li&gt;
+&lt;li&gt;几乎所有的响应缓慢的问题均是依赖导致的。&lt;/li&gt;
+&lt;li&gt;依赖监控比较大范围的监控，只能发现问题。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;46-分布式事务追踪&#34;&gt;4.6 分布式事务追踪&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;一个服务从发起到完成，要经历的节点。&lt;/li&gt;
+&lt;li&gt;传统的只能监控多个节点无法串联。&lt;/li&gt;
+&lt;li&gt;分布式追踪可以通过一个ID 就可以查询到一次请求的全链路情况。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;47-代码级监控分析profiling&#34;&gt;4.7 代码级监控分析（Profiling）&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;一般利用自动化的代码插桩技术，获取Node.js 进程内方法的调用链路。&lt;/li&gt;
+&lt;li&gt;可以查看调用栈上的总执行时间和每个方法占的百分比。&lt;/li&gt;
+&lt;li&gt;结合 V8 Profiling , 查看可能出现的内存泄漏情况。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;三指标&#34;&gt;三、指标&lt;/h2&gt;
+&lt;h3 id=&#34;1-use-method-概念&#34;&gt;1. Use Method 概念&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;资源： 应用依赖的硬件资源（CPU、硬盘、内存）&lt;/li&gt;
+&lt;li&gt;Utilization（利用率）： 以资源的一个时间段内被使用的百分比。&lt;/li&gt;
+&lt;li&gt;Saturation（饱和度）：某个资源排队的数量。&lt;/li&gt;
+&lt;li&gt;Errors（误差/错误数）：出现异常的数量。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;2-cpu利用率&#34;&gt;2. CPU利用率&lt;/h3&gt;
+&lt;h3 id=&#34;3-内存泄露&#34;&gt;3. 内存泄露&lt;/h3&gt;
+&lt;h3 id=&#34;4-吞吐量-qps--tps&#34;&gt;4. 吞吐量 QPS &amp;amp; TPS&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;QPS ： 是一台服务器每秒能够查询的次数，是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准。&lt;/li&gt;
+&lt;li&gt;TPS ： 是一台服务器每秒能够处理事务的次数。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;3-峰值qps&#34;&gt;3. 峰值QPS：&lt;/h3&gt;
+&lt;p&gt;每天80%的访问集中在20%的时间里，这20%时间叫做峰值时间。&lt;br&gt;
+（总PV数 * 80%） / （每天秒数 * 20% ） =  峰值时间每秒请求数（QPS）&lt;/p&gt;
+&lt;h3 id=&#34;5-rt--concurrencyapdex&#34;&gt;5. RT 、 Concurrency、APDEX&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;RT（响应时间）：执行一个请求从开始到最后收到响应数据所花费的总体时间。&lt;/li&gt;
+&lt;li&gt;Concurrency（并发数）：是指系统同时能处理的请求数量。&lt;/li&gt;
+&lt;li&gt;APDEX：性能指数 ， 性能满意度的量化值。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四graphite--grafana-实践&#34;&gt;四、Graphite &amp;amp; Grafana 实践&lt;/h2&gt;
+&lt;h3 id=&#34;1-graphite&#34;&gt;1. Graphite&lt;/h3&gt;
+&lt;p&gt;是处理可视化和指标数据的优秀开源工具。有强大的查询API 和 相当丰富的插件功能设置。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;指标采集器 metrics 用于采集数据。&lt;/li&gt;
+&lt;li&gt;监听器 carbon 接受指标采集器收集上来的数据，做聚合计算。&lt;/li&gt;
+&lt;li&gt;存储数据库 whisper 用于存储按照时间序列的数据。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;2-grafana&#34;&gt;2. Grafana&lt;/h3&gt;
+&lt;p&gt;是一款用Go语言开发的开源数据可视化工具，可以做数据监控和数据统计，带有告警功能，界面美观，定制性强。&lt;/p&gt;
+&lt;h3 id=&#34;3-实践&#34;&gt;3. 实践&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Graphite &amp;amp; Grafana docker-compose.yml 文件
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;version&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;services&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;grafana&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;grafana/grafana&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;graphite-statsd&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;graphiteapp/graphite-statsd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;2003-2004&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;2003-2004&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;2023-2024&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;2023-2024&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;8125&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;8125&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;/udp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;8126&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;8126&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;测试代码 app.js
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;express&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;expressStatsd&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;express-statsd&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;//指标上报工具
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;expressStatsd&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;statsd&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;req&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;req&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unknown_method&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;req&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;statsdKey&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;toLowerCase&lt;/span&gt;(), &lt;span style=&#34;color:#a6e22e&#34;&gt;path&lt;/span&gt;].&lt;span style=&#34;color:#a6e22e&#34;&gt;join&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;statsd&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;), (&lt;span style=&#34;color:#a6e22e&#34;&gt;req&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;) =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;between&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;status&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;send&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;send&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Response from a simple GET API&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;});
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;8000&lt;/span&gt;, () =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Node server started on port 8000&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;});
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;between&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;min&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;max&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;floor&lt;/span&gt;(Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;random&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;max&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;min&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;min&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;启动Graphite &amp;amp; Grafana 监控平台 docker-compose up -d&lt;/li&gt;
+&lt;li&gt;启动 app.js node app.js&lt;/li&gt;
+&lt;li&gt;此时访问  http://localhost:8000/ 便会将数据上传至监控平台&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;4-grafana配置&#34;&gt;4. Grafana配置&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;登陆 grafana （http://localhost:3000/）&lt;br&gt;
+默认用户名/密码： admin/admin&lt;/li&gt;
+&lt;li&gt;Add data source
+Connections &amp;gt; Data sources &amp;gt; Add data source  &amp;gt; 选择Graphite &amp;gt; 填写URL &amp;gt; Save&lt;br&gt;
+&lt;img src=&#34;images/add-data-source.png&#34; alt=&#34;追加dataSource&#34;&gt;&lt;/li&gt;
+&lt;li&gt;配置报表&lt;br&gt;
+Dashboards &amp;gt; New dashboard &amp;gt; Add visualization &amp;gt; Select data source (Graphite)&lt;br&gt;
+配置：Series&lt;br&gt;
+保存：save&lt;br&gt;
+&lt;img src=&#34;images/config-dashboard.png&#34; alt=&#34;配置报表&#34;&gt;&lt;/li&gt;
+&lt;li&gt;查看结果&lt;br&gt;
+&lt;img src=&#34;images/dashboard-result.png&#34; alt=&#34;查看结果&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;五总结&#34;&gt;五、总结&lt;/h2&gt;
+&lt;p&gt;引入APM以实现：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;了解终端用户真实体验。&lt;/li&gt;
+&lt;li&gt;应用架构映射，从监控逆向分析出真实链路。&lt;/li&gt;
+&lt;li&gt;应用事务分析，能从一个唯一的线索找出整条事务或操作。&lt;/li&gt;
+&lt;li&gt;深度应用诊断，精准定位问题。&lt;/li&gt;
+&lt;li&gt;分析与报告，提供实时精准的大数据查询和可视化&lt;/li&gt;
+&lt;/ol&gt;</description>
+      
+    </item>
     
     <item>
       <title>Node.js开篇</title>

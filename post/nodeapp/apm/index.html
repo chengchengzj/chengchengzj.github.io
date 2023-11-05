@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html
+  lang="zh-cn"
+  itemscope
+  itemtype="http://schema.org/WebPage"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+          Node.js应用监控 - 个人学习笔记
+        </title>
+    
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="cc" />
+  <meta name="description" content="整理Node.js应用监控系统相关内容。
+" />
+
+  <meta name="keywords" content="Hugo, Blog, Note" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0" />
+
+
+<link rel="canonical" href="https://blog.emath.top/post/nodeapp/apm/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.d8d87b982993a745e5e7b6a6cbf257be8c3e82aab5e485f0908ad7e6c3501ab2.css" integrity="sha256-2Nh7mCmTp0Xl57amy/JXvow&#43;gqq15IXwkIrX5sNQGrI=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+
+
+<meta property="og:title" content="Node.js应用监控" />
+<meta property="og:description" content="整理Node.js应用监控系统相关内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.emath.top/post/nodeapp/apm/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-11-05T13:21:55+08:00" />
+<meta property="article:modified_time" content="2023-11-05T13:21:55+08:00" />
+<meta itemprop="name" content="Node.js应用监控">
+<meta itemprop="description" content="整理Node.js应用监控系统相关内容。"><meta itemprop="datePublished" content="2023-11-05T13:21:55+08:00" />
+<meta itemprop="dateModified" content="2023-11-05T13:21:55+08:00" />
+<meta itemprop="wordCount" content="1866">
+<meta itemprop="keywords" content="Node.js,APM," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Node.js应用监控"/>
+<meta name="twitter:description" content="整理Node.js应用监控系统相关内容。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+  </head>
+  <body>
+    <div id="back-to-top"></div>
+
+    <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">学无止境</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/post/">归档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/about/">关于</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+    
+      
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+
+    
+
+    
+
+
+    <header id="header" class="header">
+      <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      学无止境
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/about/">关于</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+    </header>
+
+    <div id="mobile-panel">
+      <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
+        
+        <header class="post-header">
+          <h1 class="post-title">Node.js应用监控</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/about">
+        <span class="post-meta-author-name">
+          cc
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2023-11-05">
+      2023-11-05
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    <span class="post-meta-more">
+        约 1866 字 -
+        预计阅读 4 分钟
+      </span>
+
+    <div class="post-meta-category">
+        <a href="https://blog.emath.top/categories/node.js/"> Node.js </a>
+          <a href="https://blog.emath.top/categories/%E6%9E%84%E5%BB%BA%E9%AB%98%E5%8F%AF%E7%94%A8node.js%E5%BA%94%E7%94%A8/"> 构建高可用Node.js应用 </a>
+          
+      </div>
+
+
+    
+    
+      <span id="busuanzi_container_page_pv">
+        | 阅读 <span id="busuanzi_value_page_pv"></span>
+      </span>
+    
+
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <p>整理Node.js应用监控系统相关内容。</p>
+<h2 id="一背景">一、背景</h2>
+<p>为了能够很好定位线上问题，提前预知系统存在的隐患与问题，选择引入应用监控系统APM。</p>
+<h2 id="二apm">二、APM</h2>
+<h3 id="1-概念">1. 概念</h3>
+<p>Application Performance Management (APM) 是监控服务的一套技术手段，致力于监控并管理程序的性能和可用性。</p>
+<h3 id="2-作用">2. 作用</h3>
+<ol>
+<li>实时采集监控数据：包括硬件、操作系统、中间件、应用程序等各个维度的数据。</li>
+<li>实时反馈监控状态：通过对采集的数据进行多维度统计和可视化展示，能实时体现监控对象的状态是正常还是异常。</li>
+<li>预知故障和告警：能够提前预知故障风险，并及时发出告警信息。</li>
+<li>辅助定位故障：提供故障发生时的各项指标数据，辅助故障分析和定位。</li>
+<li>辅助性能调优：为性能调优提供数据支持，比如慢 SQL，接口响应时间等。</li>
+<li>辅助容量规划：为服务器、中间件以及应用集群的容量规划提供数据支撑。</li>
+<li>辅助自动化运维：为自动扩容或者根据配置的 SLA 进行服务降级等智能运维提供数据支撑。</li>
+</ol>
+<h3 id="3-组成原理">3. 组成原理</h3>
+<ol>
+<li>Agent: 用于上报数据</li>
+<li>Monitor: 用于收集数据</li>
+<li>Dashboard: 用于展示数据</li>
+</ol>
+<h3 id="4-apm形态">4. APM形态</h3>
+<h4 id="41-服务器性能指标监控">4.1 服务器性能指标监控</h4>
+<ol>
+<li>对服务依赖的硬件性能进行监控，如CPU、内存、硬盘容量。</li>
+<li>监控服务器性能指标的实时值，用于出紧急问题时及时报警。</li>
+<li>监控历史趋势，可以观察每天的访问情况及对异常点进行分析。</li>
+</ol>
+<h4 id="42-服务监控">4.2 服务监控</h4>
+<ol>
+<li>对提供的服务进行监控。</li>
+<li>检测服务情况，如请求数，响应数，成功率。</li>
+<li>监测服务的热点，异常波动。</li>
+<li>监测服务来源，调用方分布。</li>
+</ol>
+<h4 id="43-错误异常监控">4.3 错误异常监控</h4>
+<ol>
+<li>对报错或异常进行监控。</li>
+<li>一般需要主动上报。</li>
+<li>需要提供大量上下文信息才有意义，如当时的URL，错误堆栈等。</li>
+<li>价值与错误信息多少成正比。</li>
+</ol>
+<h4 id="44-日志收集">4.4 日志收集</h4>
+<ol>
+<li>对服务的所有情况进行记录，日志是必不可少的。</li>
+<li>日志查询分析困难，所以APM一般都有日志收集和分析能力。</li>
+<li>占空间，定期清理。</li>
+</ol>
+<h4 id="45-依赖监控">4.5 依赖监控</h4>
+<ol>
+<li>对服务的依赖进行监控，如数据库、缓存、外部服务。</li>
+<li>几乎所有的响应缓慢的问题均是依赖导致的。</li>
+<li>依赖监控比较大范围的监控，只能发现问题。</li>
+</ol>
+<h4 id="46-分布式事务追踪">4.6 分布式事务追踪</h4>
+<ol>
+<li>一个服务从发起到完成，要经历的节点。</li>
+<li>传统的只能监控多个节点无法串联。</li>
+<li>分布式追踪可以通过一个ID 就可以查询到一次请求的全链路情况。</li>
+</ol>
+<h4 id="47-代码级监控分析profiling">4.7 代码级监控分析（Profiling）</h4>
+<ol>
+<li>一般利用自动化的代码插桩技术，获取Node.js 进程内方法的调用链路。</li>
+<li>可以查看调用栈上的总执行时间和每个方法占的百分比。</li>
+<li>结合 V8 Profiling , 查看可能出现的内存泄漏情况。</li>
+</ol>
+<h2 id="三指标">三、指标</h2>
+<h3 id="1-use-method-概念">1. Use Method 概念</h3>
+<ol>
+<li>资源： 应用依赖的硬件资源（CPU、硬盘、内存）</li>
+<li>Utilization（利用率）： 以资源的一个时间段内被使用的百分比。</li>
+<li>Saturation（饱和度）：某个资源排队的数量。</li>
+<li>Errors（误差/错误数）：出现异常的数量。</li>
+</ol>
+<h3 id="2-cpu利用率">2. CPU利用率</h3>
+<h3 id="3-内存泄露">3. 内存泄露</h3>
+<h3 id="4-吞吐量-qps--tps">4. 吞吐量 QPS &amp; TPS</h3>
+<ol>
+<li>QPS ： 是一台服务器每秒能够查询的次数，是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准。</li>
+<li>TPS ： 是一台服务器每秒能够处理事务的次数。</li>
+</ol>
+<h3 id="3-峰值qps">3. 峰值QPS：</h3>
+<p>每天80%的访问集中在20%的时间里，这20%时间叫做峰值时间。<br>
+（总PV数 * 80%） / （每天秒数 * 20% ） =  峰值时间每秒请求数（QPS）</p>
+<h3 id="5-rt--concurrencyapdex">5. RT 、 Concurrency、APDEX</h3>
+<ol>
+<li>RT（响应时间）：执行一个请求从开始到最后收到响应数据所花费的总体时间。</li>
+<li>Concurrency（并发数）：是指系统同时能处理的请求数量。</li>
+<li>APDEX：性能指数 ， 性能满意度的量化值。</li>
+</ol>
+<h2 id="四graphite--grafana-实践">四、Graphite &amp; Grafana 实践</h2>
+<h3 id="1-graphite">1. Graphite</h3>
+<p>是处理可视化和指标数据的优秀开源工具。有强大的查询API 和 相当丰富的插件功能设置。</p>
+<ol>
+<li>指标采集器 metrics 用于采集数据。</li>
+<li>监听器 carbon 接受指标采集器收集上来的数据，做聚合计算。</li>
+<li>存储数据库 whisper 用于存储按照时间序列的数据。</li>
+</ol>
+<h3 id="2-grafana">2. Grafana</h3>
+<p>是一款用Go语言开发的开源数据可视化工具，可以做数据监控和数据统计，带有告警功能，界面美观，定制性强。</p>
+<h3 id="3-实践">3. 实践</h3>
+<ol>
+<li>Graphite &amp; Grafana docker-compose.yml 文件
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">grafana</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">grafana/grafana</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">3000</span>:<span style="color:#ae81ff">3000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">graphite-statsd</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">graphiteapp/graphite-statsd</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">2003-2004</span>:<span style="color:#ae81ff">2003-2004</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">2023-2024</span>:<span style="color:#ae81ff">2023-2024</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">8125</span>:<span style="color:#ae81ff">8125</span><span style="color:#ae81ff">/udp</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">8126</span>:<span style="color:#ae81ff">8126</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">8080</span>:<span style="color:#ae81ff">80</span>
+</span></span></code></pre></div></li>
+<li>测试代码 app.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">express</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;express&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expressStatsd</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;express-statsd&#34;</span>); <span style="color:#75715e">//指标上报工具
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">expressStatsd</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">statsd</span>(<span style="color:#a6e22e">path</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">next</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">method</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">method</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;unknown_method&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">statsdKey</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;http&#34;</span>, <span style="color:#a6e22e">method</span>.<span style="color:#a6e22e">toLowerCase</span>(), <span style="color:#a6e22e">path</span>].<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">next</span>();
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">statsd</span>(<span style="color:#e6db74">&#34;root&#34;</span>), (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">between</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">500</span>).<span style="color:#a6e22e">send</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;Response from a simple GET API&#34;</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">8000</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Node server started on port 8000&#34;</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">between</span>(<span style="color:#a6e22e">min</span>, <span style="color:#a6e22e">max</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> (<span style="color:#a6e22e">max</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">min</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">min</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>启动Graphite &amp; Grafana 监控平台 docker-compose up -d</li>
+<li>启动 app.js node app.js</li>
+<li>此时访问  http://localhost:8000/ 便会将数据上传至监控平台</li>
+</ol>
+<h3 id="4-grafana配置">4. Grafana配置</h3>
+<ol>
+<li>登陆 grafana （http://localhost:3000/）<br>
+默认用户名/密码： admin/admin</li>
+<li>Add data source
+Connections &gt; Data sources &gt; Add data source  &gt; 选择Graphite &gt; 填写URL &gt; Save<br>
+<img src="images/add-data-source.png" alt="追加dataSource"></li>
+<li>配置报表<br>
+Dashboards &gt; New dashboard &gt; Add visualization &gt; Select data source (Graphite)<br>
+配置：Series<br>
+保存：save<br>
+<img src="images/config-dashboard.png" alt="配置报表"></li>
+<li>查看结果<br>
+<img src="images/dashboard-result.png" alt="查看结果"></li>
+</ol>
+<h2 id="五总结">五、总结</h2>
+<p>引入APM以实现：</p>
+<ol>
+<li>了解终端用户真实体验。</li>
+<li>应用架构映射，从监控逆向分析出真实链路。</li>
+<li>应用事务分析，能从一个唯一的线索找出整条事务或操作。</li>
+<li>深度应用诊断，精准定位问题。</li>
+<li>分析与报告，提供实时精准的大数据查询和可视化</li>
+</ol>
+        </div>
+
+        
+        
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          <div class="post-tags">
+              <a href="https://blog.emath.top/tags/node.js/">Node.js</a>
+                <a href="https://blog.emath.top/tags/apm/">APM</a>
+                
+            </div>
+
+
+          
+          <nav class="post-nav">
+            
+            
+              <a class="next" href="/post/node/begin/">
+                <span class="next-text nav-default">Node.js开篇</span>
+                <span class="prev-text nav-mobile">下一篇</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+  
+
+  
+  
+
+  
+  
+    <div class="post">
+  <script src="https://utteranc.es/client.js"
+        repo= "chengchengzj/chengchengzj.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</div>
+
+  
+
+  
+
+  
+
+    
+
+  
+
+  
+
+
+    </div>
+
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">文章目录</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一背景">一、背景</a></li>
+    <li><a href="#二apm">二、APM</a>
+      <ul>
+        <li><a href="#1-概念">1. 概念</a></li>
+        <li><a href="#2-作用">2. 作用</a></li>
+        <li><a href="#3-组成原理">3. 组成原理</a></li>
+        <li><a href="#4-apm形态">4. APM形态</a></li>
+      </ul>
+    </li>
+    <li><a href="#三指标">三、指标</a>
+      <ul>
+        <li><a href="#1-use-method-概念">1. Use Method 概念</a></li>
+        <li><a href="#2-cpu利用率">2. CPU利用率</a></li>
+        <li><a href="#3-内存泄露">3. 内存泄露</a></li>
+        <li><a href="#4-吞吐量-qps--tps">4. 吞吐量 QPS &amp; TPS</a></li>
+        <li><a href="#3-峰值qps">3. 峰值QPS：</a></li>
+        <li><a href="#5-rt--concurrencyapdex">5. RT 、 Concurrency、APDEX</a></li>
+      </ul>
+    </li>
+    <li><a href="#四graphite--grafana-实践">四、Graphite &amp; Grafana 实践</a>
+      <ul>
+        <li><a href="#1-graphite">1. Graphite</a></li>
+        <li><a href="#2-grafana">2. Grafana</a></li>
+        <li><a href="#3-实践">3. 实践</a></li>
+        <li><a href="#4-grafana配置">4. Grafana配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#五总结">五、总结</a></li>
+  </ul>
+</nav>
+    </div>
+  </nav>
+
+
+  </div>
+
+      </main>
+
+      <footer id="footer" class="footer">
+        <div class="icon-links">
+  
+  
+    <a href="https://github.com/chengchengzj" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://blog.emath.top/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2023
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        cc
+        
+      </span></span>
+
+  
+  
+    <span id="busuanzi_container">
+      访客数/访问量：<span id="busuanzi_value_site_uv"></span>/<span id="busuanzi_value_site_pv"></span>
+    </span>
+  
+
+  
+</div>
+
+      </footer>
+
+      <div class="button__back-to-top">
+        <a href="#back-to-top">
+          <i class="iconfont">
+            
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+          </i>
+        </a>
+      </div>
+    </div>
+    
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.65bd29307f50a0fe07557f0c161b56cec2c19af4c8c64da7bbd4b055fd3c2ab5.js" integrity="sha256-Zb0pMH9QoP4HVX8MFhtWzsLBmvTIxk2nu9SwVf08KrU=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>构建高可用Node.js应用 on 个人学习笔记</title>
+    <link>https://blog.emath.top/categories/%E6%9E%84%E5%BB%BA%E9%AB%98%E5%8F%AF%E7%94%A8node.js%E5%BA%94%E7%94%A8/</link>
+    <description>Recent content in 构建高可用Node.js应用 on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 05 Nov 2023 13:21:55 +0800</lastBuildDate><atom:link href="https://blog.emath.top/categories/%E6%9E%84%E5%BB%BA%E9%AB%98%E5%8F%AF%E7%94%A8node.js%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js应用监控</title>
+      <link>https://blog.emath.top/post/nodeapp/apm/</link>
+      <pubDate>Sun, 05 Nov 2023 13:21:55 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/nodeapp/apm/</guid>
+      <description>&lt;p&gt;整理Node.js应用监控系统相关内容。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
