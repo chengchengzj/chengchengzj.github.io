@@ -6,10 +6,230 @@
     <description>Recent content on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 05 Nov 2023 13:21:55 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 31 Dec 2023 17:04:19 +0800</lastBuildDate>
     
         <atom:link href="https://blog.emath.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SSH应用与实践</title>
+      <link>https://blog.emath.top/post/ops/ssh/</link>
+      <pubDate>Sun, 31 Dec 2023 17:04:19 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/ops/ssh/</guid>
+      
+        <description>&lt;p&gt;休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。&lt;/p&gt;
+&lt;h2 id=&#34;一背景&#34;&gt;一、背景&lt;/h2&gt;
+&lt;p&gt;Linux系统大多数情况下作为服务器而存在，服务的部署绕不开对Linux的操作，通过整理SSH知识点与实践笔记，可以完成对Linux系统的连接、实现跳板机、端口转发等目标。&lt;/p&gt;
+&lt;h2 id=&#34;二安全远程登录&#34;&gt;二、安全远程登录&lt;/h2&gt;
+&lt;h3 id=&#34;1-密码登录&#34;&gt;1. 密码登录&lt;/h3&gt;
+&lt;h4 id=&#34;ssh服务默认登录方式原理如下&#34;&gt;SSH服务默认登录方式，原理如下：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;客户端向服务端发起请求&lt;/li&gt;
+&lt;li&gt;服务端收到请求将自己生成的公钥返回给客户端&lt;/li&gt;
+&lt;li&gt;客户端使用返回的公钥加密登录密码并发送给服务端&lt;/li&gt;
+&lt;li&gt;服务端使用对应的私钥解密，密码验证通过后，允许登录&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;基本使用&#34;&gt;基本使用：&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh username@remoteIP -p port
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;username@remoteIP&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;s password: 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;username : 远程机器的用户名&lt;/li&gt;
+&lt;li&gt;remoteIP : 远程机器的地址（IP、域名 或者 别名）&lt;/li&gt;
+&lt;li&gt;port : SSH服务端口号（默认值：22）&lt;/li&gt;
+&lt;li&gt;password : 输入远程机器的密码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;存在的问题&#34;&gt;存在的问题&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;安全性，存在中间人攻击的可能
+&lt;ol&gt;
+&lt;li&gt;客户端向服务端发起请求&lt;/li&gt;
+&lt;li&gt;攻击人截获请求，并向客户端反回自己的公钥&lt;/li&gt;
+&lt;li&gt;客户端使用返回的公钥加密登录密码并返回&lt;/li&gt;
+&lt;li&gt;攻击人用自己的私钥解密，获得服务器登录信息（密码）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;较为麻烦，每次登录需要输入密码&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;2-密钥认证登录&#34;&gt;2. 密钥认证登录&lt;/h3&gt;
+&lt;h4 id=&#34;免密登录方式原理如下&#34;&gt;免密登录方式，原理如下：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;客户端生成密钥对，事先将公钥上传存储至远程服务器上&lt;/li&gt;
+&lt;li&gt;客户端发起登录请求&lt;/li&gt;
+&lt;li&gt;服务器发一串随机字符串给客户端&lt;/li&gt;
+&lt;li&gt;客户端使用私钥加密随机字符串并返回给服务端&lt;/li&gt;
+&lt;li&gt;服务端用事先存好的公钥解密，确认字符串后，允许登录&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;实现步骤&#34;&gt;实现步骤&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;客户端通过ssh-keygen生成自己的公钥和私钥。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;生成一个4096位 RSA 加密算法的密钥对，并且给出了用户名和主机名。
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-keygen -t rsa -b &lt;span style=&#34;color:#ae81ff&#34;&gt;4096&lt;/span&gt; -C &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;your_email@domain.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;上传公钥&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;手动：&lt;br&gt;
+生成密钥以后，公钥必须上传到服务器，才能使用公钥登录。&lt;br&gt;
+OpenSSH 规定，用户公钥保存在服务器的~/.ssh/authorized_keys文件.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cat ~/.ssh/id_rsa.pub | ssh user@host &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mkdir -p ~/.ssh &amp;amp;&amp;amp; cat &amp;gt;&amp;gt; ~/.ssh/authorized_keys&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;注意，authorized_keys文件的权限要设为644，即只有文件所有者才能写。如果权限设置不对，SSH 服务器可能会拒绝读取该文件。&lt;/li&gt;
+&lt;li&gt;自动：&lt;br&gt;
+OpenSSH 自带一个ssh-copy-id命令，可以自动将公钥拷贝到远程服务器的.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-copy-id -i id_rsa username@remoteIP
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;登陆时，不指定私钥配置&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim ~/.ssh/config
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Host *
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  IdentityFile ~/.ssh/your_private_key
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;关闭密码登录&lt;br&gt;
+对于 OpenSSH，具体方法就是打开服务器 sshd 的配置文件/etc/ssh/sshd_config，将PasswordAuthentication这一项设为no。
+重启sshd&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;systemctl restart sshd.service
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;自启动配置：
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;systemctl enable sshd.service
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;三文件传输&#34;&gt;三、文件传输&lt;/h2&gt;
+&lt;h3 id=&#34;1-scp&#34;&gt;1. scp&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;复制远程文件至当前目录&lt;br&gt;
+&lt;code&gt;scp username@remoteIP:/home/username/filename .&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;复制文件至远程目录&lt;br&gt;
+&lt;code&gt;scp filename username@remoteIP:/home/username&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基于&lt;code&gt;-r&lt;/code&gt;选项复制目录&lt;br&gt;
+&lt;code&gt;scp -r source_dir username@remoteIP:/home/username/target_dir&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;配置项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-C ：传输时压缩文件&lt;/li&gt;
+&lt;li&gt;&amp;amp; ： 后台运行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-rsync&#34;&gt;2. rsync&lt;/h3&gt;
+&lt;p&gt;rsync不是SSH 工具集的一部分，是一个强大的文件同步工具，用于在本地或远程系统之间同步文件和目录，它能够差异化地传输文件，只传输发生变化的部分，从而节省带宽和时间。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;本地文件同步到远程主机&lt;br&gt;
+&lt;code&gt;rsync -av source/ username@remoteIP:destination&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;远程文件同步到本地&lt;br&gt;
+&lt;code&gt;rsync -av username@remoteIP:source/ destination&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-sftp&#34;&gt;3. sftp&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;连接 FTP 主机&lt;br&gt;
+&lt;code&gt;sftp username@remoteIP&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;本地文件传输到远程主机&lt;br&gt;
+&lt;code&gt;put localfile [remotefile]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;远程文件传输到本地&lt;br&gt;
+&lt;code&gt;get remotefile [localfile]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-sshfs&#34;&gt;4. sshfs&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;挂载远程文件系统&lt;br&gt;
+&lt;code&gt;sshfs username@remoteIP:[远程路径] [本地挂载点]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;卸载远程文件系统&lt;br&gt;
+&lt;code&gt;fusermount -u [本地挂载点]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;四端口转发&#34;&gt;四、端口转发&lt;/h2&gt;
+&lt;h3 id=&#34;1-本地转发localforward&#34;&gt;1. 本地转发（LocalForward）&lt;/h3&gt;
+&lt;p&gt;创建一个本地端口，将发往该端口的所有通信都通过 SSH 服务器，转发到指定的远程服务器的端口。SSH 服务器只是一个作为跳板的中介，用于连接本地计算机无法直接连接的远程服务器。本地转发是在本地计算机建立的转发规则。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh -L -N -f -g local-port:target-host:target-port username@sshIP  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-L：表示本地端口转发
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-N：不发送任何命令，只用来建立连接
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-f：将 SSH 连接放到后台
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-g：允许远程主机通过使用本地主机的IP地址访问
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;举例：&lt;code&gt;ssh -L -N -f -g 8080:localhost:80 root@192.168.2.30 &lt;/code&gt;&lt;br&gt;
+此时访问127.0.0.1:8080 等于访问的是192.168.2.30:80&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果经常使用本地转发，可以将设置写入 SSH 客户端的用户个人配置文件（~/.ssh/config）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Host myserver
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    HostName 192.168.2.30
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    User root
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    LocalForward &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt; localhost:80
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;连接：&lt;code&gt;ssh myserver&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-远程转发-remoteforward&#34;&gt;2. 远程转发 (RemoteForward)&lt;/h3&gt;
+&lt;p&gt;远程转发是通过远程 SSH 服务器访问本地计算机，可以作为内网穿透，当内网服务想被外网访问，可以通过远程转发将内网端口映射到具有公网IP的服务器的某个端口。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh -R -N remote-port:target-host:target-port  remotehost
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-R：表示远程端口转发
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-N：不发送任何命令，只用来建立连接
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;举例 &lt;code&gt;ssh -R 80:localhost:8080 -N root@www.emath.top&lt;/code&gt;
+此时访问www.emath.top:80 等于访问的是localhost:80&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-动态转发-dynamicforward&#34;&gt;3. 动态转发 (DynamicForward)&lt;/h3&gt;
+&lt;p&gt;动态转发需要把本地端口绑定到 SSH 服务器。至于 SSH 服务器要去访问哪一个网站，完全是动态的，取决于原始通信。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh -D local-port username@remoteIP -N
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-D：表示动态转发
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-N：表示这个 SSH 连接只进行端口转发，不登录远程 Shell
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;举例 &lt;code&gt;ssh -D 1234 root@www.emath.top -N&lt;/code&gt;
+注意，这种转发采用了 SOCKS5 协议。访问外部网站时，需要把 HTTP 请求转成 SOCKS5 协议，才能把本地端口的请求转发出去。&lt;/p&gt;
+&lt;p&gt;访问：&lt;code&gt;curl -x socks5://localhost:1234 http://www.google.com&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;五总结&#34;&gt;五、总结&lt;/h2&gt;
+&lt;h3 id=&#34;1-什么是ssh&#34;&gt;1. 什么是SSH&lt;/h3&gt;
+&lt;p&gt;SSH（Secure Shell ）是一种网络安全协议，通过加密和认证机制实现安全的访问和文件传输等业务。传统远程登录和文件传输方式，例如Telnet、FTP，使用明文传输数据，存在很多的安全隐患。随着人们对网络安全的重视，这些方式已经慢慢不被接受。SSH协议通过对网络数据进行加密和验证，在不安全的网络环境中提供了安全的网络服务。作为Telnet和其他不安全远程shell协议的安全替代方案，目前SSH协议已经被全世界广泛使用，大多数设备都支持SSH功能。&lt;/p&gt;
+&lt;h3 id=&#34;2-ssh用来做什么&#34;&gt;2. SSH用来做什么&lt;/h3&gt;
+&lt;p&gt;用于保证远程登录和远程通信的安全，任何网络服务都可以用这个协议来加密，最常用的场景是远程登录和文件传输。
+&lt;img src=&#34;images/ssh.png&#34; alt=&#34;安全传输&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3-ssh-架构&#34;&gt;3. SSH 架构&lt;/h3&gt;
+&lt;p&gt;SSH 的软件架构是服务器-客户端模式（Server - Client）。在这个架构中，SSH 软件分成两个部分：向服务器发出请求的部分，称为客户端（client），OpenSSH 的实现为 ssh；接收客户端发出的请求的部分，称为服务器（server），OpenSSH 的实现为 sshd&lt;/p&gt;
+&lt;h3 id=&#34;4-工作流程&#34;&gt;4. 工作流程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;建立TCP连接&lt;/li&gt;
+&lt;li&gt;版本协商&lt;/li&gt;
+&lt;li&gt;算法协商&lt;/li&gt;
+&lt;li&gt;密钥交换&lt;/li&gt;
+&lt;li&gt;用户认证&lt;/li&gt;
+&lt;li&gt;会话请求&lt;/li&gt;
+&lt;li&gt;会话交互&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;5-感悟&#34;&gt;5. 感悟&lt;/h3&gt;
+&lt;p&gt;明天开始就是2024了，回忆这一年以来不论是生活还是工作确实都很难，希望自己能不忘初心，持续提升自我，肩负起家庭的责任、当代青年的社会责任。&lt;br&gt;
+在未来的一年，学习笔记还是要坚持做的，加深自己对工作中常用的知识点的理解更是方便需要时的查阅。&lt;/p&gt;</description>
+      
+    </item>
     
     <item>
       <title>Node.js应用监控</title>

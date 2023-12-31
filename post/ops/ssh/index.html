@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html
+  lang="zh-cn"
+  itemscope
+  itemtype="http://schema.org/WebPage"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+          SSH应用与实践 - 个人学习笔记
+        </title>
+    
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="cc" />
+  <meta name="description" content="休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。
+" />
+
+  <meta name="keywords" content="Hugo, Blog, Note" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0" />
+
+
+<link rel="canonical" href="https://blog.emath.top/post/ops/ssh/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.d8d87b982993a745e5e7b6a6cbf257be8c3e82aab5e485f0908ad7e6c3501ab2.css" integrity="sha256-2Nh7mCmTp0Xl57amy/JXvow&#43;gqq15IXwkIrX5sNQGrI=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+
+
+<meta property="og:title" content="SSH应用与实践" />
+<meta property="og:description" content="休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.emath.top/post/ops/ssh/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-12-31T17:04:19+08:00" />
+<meta property="article:modified_time" content="2023-12-31T17:04:19+08:00" />
+<meta itemprop="name" content="SSH应用与实践">
+<meta itemprop="description" content="休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。"><meta itemprop="datePublished" content="2023-12-31T17:04:19+08:00" />
+<meta itemprop="dateModified" content="2023-12-31T17:04:19+08:00" />
+<meta itemprop="wordCount" content="2444">
+<meta itemprop="keywords" content="运维,SSH," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SSH应用与实践"/>
+<meta name="twitter:description" content="休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+  </head>
+  <body>
+    <div id="back-to-top"></div>
+
+    <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">学无止境</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/post/">归档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/categories/">分类</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/about/">关于</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+    
+      
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+
+    
+
+    
+
+
+    <header id="header" class="header">
+      <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      学无止境
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://blog.emath.top/about/">关于</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+    </header>
+
+    <div id="mobile-panel">
+      <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
+        
+        <header class="post-header">
+          <h1 class="post-title">SSH应用与实践</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/about">
+        <span class="post-meta-author-name">
+          cc
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2023-12-31">
+      2023-12-31
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    <span class="post-meta-more">
+        约 2444 字 -
+        预计阅读 5 分钟
+      </span>
+
+    <div class="post-meta-category">
+        <a href="https://blog.emath.top/categories/%E8%BF%90%E7%BB%B4%E7%AC%94%E8%AE%B0/"> 运维笔记 </a>
+          
+      </div>
+
+
+    
+    
+      <span id="busuanzi_container_page_pv">
+        | 阅读 <span id="busuanzi_value_page_pv"></span>
+      </span>
+    
+
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <p>休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。</p>
+<h2 id="一背景">一、背景</h2>
+<p>Linux系统大多数情况下作为服务器而存在，服务的部署绕不开对Linux的操作，通过整理SSH知识点与实践笔记，可以完成对Linux系统的连接、实现跳板机、端口转发等目标。</p>
+<h2 id="二安全远程登录">二、安全远程登录</h2>
+<h3 id="1-密码登录">1. 密码登录</h3>
+<h4 id="ssh服务默认登录方式原理如下">SSH服务默认登录方式，原理如下：</h4>
+<ol>
+<li>客户端向服务端发起请求</li>
+<li>服务端收到请求将自己生成的公钥返回给客户端</li>
+<li>客户端使用返回的公钥加密登录密码并发送给服务端</li>
+<li>服务端使用对应的私钥解密，密码验证通过后，允许登录</li>
+</ol>
+<h4 id="基本使用">基本使用：</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh username@remoteIP -p port
+</span></span><span style="display:flex;"><span>username@remoteIP<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+</span></span></code></pre></div><ul>
+<li>username : 远程机器的用户名</li>
+<li>remoteIP : 远程机器的地址（IP、域名 或者 别名）</li>
+<li>port : SSH服务端口号（默认值：22）</li>
+<li>password : 输入远程机器的密码</li>
+</ul>
+<h4 id="存在的问题">存在的问题</h4>
+<ol>
+<li>安全性，存在中间人攻击的可能
+<ol>
+<li>客户端向服务端发起请求</li>
+<li>攻击人截获请求，并向客户端反回自己的公钥</li>
+<li>客户端使用返回的公钥加密登录密码并返回</li>
+<li>攻击人用自己的私钥解密，获得服务器登录信息（密码）</li>
+</ol>
+</li>
+<li>较为麻烦，每次登录需要输入密码</li>
+</ol>
+<h3 id="2-密钥认证登录">2. 密钥认证登录</h3>
+<h4 id="免密登录方式原理如下">免密登录方式，原理如下：</h4>
+<ol>
+<li>客户端生成密钥对，事先将公钥上传存储至远程服务器上</li>
+<li>客户端发起登录请求</li>
+<li>服务器发一串随机字符串给客户端</li>
+<li>客户端使用私钥加密随机字符串并返回给服务端</li>
+<li>服务端用事先存好的公钥解密，确认字符串后，允许登录</li>
+</ol>
+<h4 id="实现步骤">实现步骤</h4>
+<ol>
+<li>
+<p>客户端通过ssh-keygen生成自己的公钥和私钥。</p>
+<ul>
+<li>生成一个4096位 RSA 加密算法的密钥对，并且给出了用户名和主机名。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen -t rsa -b <span style="color:#ae81ff">4096</span> -C <span style="color:#e6db74">&#34;your_email@domain.com&#34;</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>上传公钥</p>
+<ol>
+<li>手动：<br>
+生成密钥以后，公钥必须上传到服务器，才能使用公钥登录。<br>
+OpenSSH 规定，用户公钥保存在服务器的~/.ssh/authorized_keys文件.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat ~/.ssh/id_rsa.pub | ssh user@host <span style="color:#e6db74">&#34;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys&#34;</span>
+</span></span></code></pre></div>注意，authorized_keys文件的权限要设为644，即只有文件所有者才能写。如果权限设置不对，SSH 服务器可能会拒绝读取该文件。</li>
+<li>自动：<br>
+OpenSSH 自带一个ssh-copy-id命令，可以自动将公钥拷贝到远程服务器的.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i id_rsa username@remoteIP
+</span></span></code></pre></div></li>
+</ol>
+</li>
+<li>
+<p>登陆时，不指定私钥配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim ~/.ssh/config
+</span></span><span style="display:flex;"><span>Host *
+</span></span><span style="display:flex;"><span>  IdentityFile ~/.ssh/your_private_key
+</span></span></code></pre></div></li>
+<li>
+<p>关闭密码登录<br>
+对于 OpenSSH，具体方法就是打开服务器 sshd 的配置文件/etc/ssh/sshd_config，将PasswordAuthentication这一项设为no。
+重启sshd</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart sshd.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>自启动配置：
+</span></span><span style="display:flex;"><span>systemctl enable sshd.service
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="三文件传输">三、文件传输</h2>
+<h3 id="1-scp">1. scp</h3>
+<ul>
+<li>
+<p>复制远程文件至当前目录<br>
+<code>scp username@remoteIP:/home/username/filename .</code></p>
+</li>
+<li>
+<p>复制文件至远程目录<br>
+<code>scp filename username@remoteIP:/home/username</code></p>
+</li>
+<li>
+<p>基于<code>-r</code>选项复制目录<br>
+<code>scp -r source_dir username@remoteIP:/home/username/target_dir</code></p>
+</li>
+<li>
+<p>配置项</p>
+<ul>
+<li>-C ：传输时压缩文件</li>
+<li>&amp; ： 后台运行</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-rsync">2. rsync</h3>
+<p>rsync不是SSH 工具集的一部分，是一个强大的文件同步工具，用于在本地或远程系统之间同步文件和目录，它能够差异化地传输文件，只传输发生变化的部分，从而节省带宽和时间。</p>
+<ul>
+<li>
+<p>本地文件同步到远程主机<br>
+<code>rsync -av source/ username@remoteIP:destination</code></p>
+</li>
+<li>
+<p>远程文件同步到本地<br>
+<code>rsync -av username@remoteIP:source/ destination</code></p>
+</li>
+</ul>
+<h3 id="3-sftp">3. sftp</h3>
+<ul>
+<li>
+<p>连接 FTP 主机<br>
+<code>sftp username@remoteIP</code></p>
+</li>
+<li>
+<p>本地文件传输到远程主机<br>
+<code>put localfile [remotefile]</code></p>
+</li>
+<li>
+<p>远程文件传输到本地<br>
+<code>get remotefile [localfile]</code></p>
+</li>
+</ul>
+<h3 id="4-sshfs">4. sshfs</h3>
+<ul>
+<li>
+<p>挂载远程文件系统<br>
+<code>sshfs username@remoteIP:[远程路径] [本地挂载点]</code></p>
+</li>
+<li>
+<p>卸载远程文件系统<br>
+<code>fusermount -u [本地挂载点]</code></p>
+</li>
+</ul>
+<h2 id="四端口转发">四、端口转发</h2>
+<h3 id="1-本地转发localforward">1. 本地转发（LocalForward）</h3>
+<p>创建一个本地端口，将发往该端口的所有通信都通过 SSH 服务器，转发到指定的远程服务器的端口。SSH 服务器只是一个作为跳板的中介，用于连接本地计算机无法直接连接的远程服务器。本地转发是在本地计算机建立的转发规则。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -L -N -f -g local-port:target-host:target-port username@sshIP  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-L：表示本地端口转发
+</span></span><span style="display:flex;"><span>-N：不发送任何命令，只用来建立连接
+</span></span><span style="display:flex;"><span>-f：将 SSH 连接放到后台
+</span></span><span style="display:flex;"><span>-g：允许远程主机通过使用本地主机的IP地址访问
+</span></span></code></pre></div><ul>
+<li>
+<p>举例：<code>ssh -L -N -f -g 8080:localhost:80 root@192.168.2.30 </code><br>
+此时访问127.0.0.1:8080 等于访问的是192.168.2.30:80</p>
+</li>
+<li>
+<p>如果经常使用本地转发，可以将设置写入 SSH 客户端的用户个人配置文件（~/.ssh/config）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Host myserver
+</span></span><span style="display:flex;"><span>    HostName 192.168.2.30
+</span></span><span style="display:flex;"><span>    User root
+</span></span><span style="display:flex;"><span>    LocalForward <span style="color:#ae81ff">8080</span> localhost:80
+</span></span></code></pre></div><p>连接：<code>ssh myserver</code></p>
+</li>
+</ul>
+<h3 id="2-远程转发-remoteforward">2. 远程转发 (RemoteForward)</h3>
+<p>远程转发是通过远程 SSH 服务器访问本地计算机，可以作为内网穿透，当内网服务想被外网访问，可以通过远程转发将内网端口映射到具有公网IP的服务器的某个端口。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -R -N remote-port:target-host:target-port  remotehost
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-R：表示远程端口转发
+</span></span><span style="display:flex;"><span>-N：不发送任何命令，只用来建立连接
+</span></span></code></pre></div><ul>
+<li>举例 <code>ssh -R 80:localhost:8080 -N root@www.emath.top</code>
+此时访问www.emath.top:80 等于访问的是localhost:80</li>
+</ul>
+<h3 id="3-动态转发-dynamicforward">3. 动态转发 (DynamicForward)</h3>
+<p>动态转发需要把本地端口绑定到 SSH 服务器。至于 SSH 服务器要去访问哪一个网站，完全是动态的，取决于原始通信。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -D local-port username@remoteIP -N
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-D：表示动态转发
+</span></span><span style="display:flex;"><span>-N：表示这个 SSH 连接只进行端口转发，不登录远程 Shell
+</span></span></code></pre></div><ul>
+<li>
+<p>举例 <code>ssh -D 1234 root@www.emath.top -N</code>
+注意，这种转发采用了 SOCKS5 协议。访问外部网站时，需要把 HTTP 请求转成 SOCKS5 协议，才能把本地端口的请求转发出去。</p>
+<p>访问：<code>curl -x socks5://localhost:1234 http://www.google.com</code></p>
+</li>
+</ul>
+<h2 id="五总结">五、总结</h2>
+<h3 id="1-什么是ssh">1. 什么是SSH</h3>
+<p>SSH（Secure Shell ）是一种网络安全协议，通过加密和认证机制实现安全的访问和文件传输等业务。传统远程登录和文件传输方式，例如Telnet、FTP，使用明文传输数据，存在很多的安全隐患。随着人们对网络安全的重视，这些方式已经慢慢不被接受。SSH协议通过对网络数据进行加密和验证，在不安全的网络环境中提供了安全的网络服务。作为Telnet和其他不安全远程shell协议的安全替代方案，目前SSH协议已经被全世界广泛使用，大多数设备都支持SSH功能。</p>
+<h3 id="2-ssh用来做什么">2. SSH用来做什么</h3>
+<p>用于保证远程登录和远程通信的安全，任何网络服务都可以用这个协议来加密，最常用的场景是远程登录和文件传输。
+<img src="images/ssh.png" alt="安全传输"></p>
+<h3 id="3-ssh-架构">3. SSH 架构</h3>
+<p>SSH 的软件架构是服务器-客户端模式（Server - Client）。在这个架构中，SSH 软件分成两个部分：向服务器发出请求的部分，称为客户端（client），OpenSSH 的实现为 ssh；接收客户端发出的请求的部分，称为服务器（server），OpenSSH 的实现为 sshd</p>
+<h3 id="4-工作流程">4. 工作流程</h3>
+<ol>
+<li>建立TCP连接</li>
+<li>版本协商</li>
+<li>算法协商</li>
+<li>密钥交换</li>
+<li>用户认证</li>
+<li>会话请求</li>
+<li>会话交互</li>
+</ol>
+<h3 id="5-感悟">5. 感悟</h3>
+<p>明天开始就是2024了，回忆这一年以来不论是生活还是工作确实都很难，希望自己能不忘初心，持续提升自我，肩负起家庭的责任、当代青年的社会责任。<br>
+在未来的一年，学习笔记还是要坚持做的，加深自己对工作中常用的知识点的理解更是方便需要时的查阅。</p>
+        </div>
+
+        
+        
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          <div class="post-tags">
+              <a href="https://blog.emath.top/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+                <a href="https://blog.emath.top/tags/ssh/">SSH</a>
+                
+            </div>
+
+
+          
+          <nav class="post-nav">
+            
+            
+              <a class="next" href="/post/nodeapp/apm/">
+                <span class="next-text nav-default">Node.js应用监控</span>
+                <span class="prev-text nav-mobile">下一篇</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+  
+
+  
+  
+
+  
+  
+    <div class="post">
+  <script src="https://utteranc.es/client.js"
+        repo= "chengchengzj/chengchengzj.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</div>
+
+  
+
+  
+
+  
+
+    
+
+  
+
+  
+
+
+    </div>
+
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">文章目录</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一背景">一、背景</a></li>
+    <li><a href="#二安全远程登录">二、安全远程登录</a>
+      <ul>
+        <li><a href="#1-密码登录">1. 密码登录</a></li>
+        <li><a href="#2-密钥认证登录">2. 密钥认证登录</a></li>
+      </ul>
+    </li>
+    <li><a href="#三文件传输">三、文件传输</a>
+      <ul>
+        <li><a href="#1-scp">1. scp</a></li>
+        <li><a href="#2-rsync">2. rsync</a></li>
+        <li><a href="#3-sftp">3. sftp</a></li>
+        <li><a href="#4-sshfs">4. sshfs</a></li>
+      </ul>
+    </li>
+    <li><a href="#四端口转发">四、端口转发</a>
+      <ul>
+        <li><a href="#1-本地转发localforward">1. 本地转发（LocalForward）</a></li>
+        <li><a href="#2-远程转发-remoteforward">2. 远程转发 (RemoteForward)</a></li>
+        <li><a href="#3-动态转发-dynamicforward">3. 动态转发 (DynamicForward)</a></li>
+      </ul>
+    </li>
+    <li><a href="#五总结">五、总结</a>
+      <ul>
+        <li><a href="#1-什么是ssh">1. 什么是SSH</a></li>
+        <li><a href="#2-ssh用来做什么">2. SSH用来做什么</a></li>
+        <li><a href="#3-ssh-架构">3. SSH 架构</a></li>
+        <li><a href="#4-工作流程">4. 工作流程</a></li>
+        <li><a href="#5-感悟">5. 感悟</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+  </nav>
+
+
+  </div>
+
+      </main>
+
+      <footer id="footer" class="footer">
+        <div class="icon-links">
+  
+  
+    <a href="https://github.com/chengchengzj" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+
+
+<a href="https://blog.emath.top/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2023
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        cc
+        
+      </span></span>
+
+  
+  
+    <span id="busuanzi_container">
+      访客数/访问量：<span id="busuanzi_value_site_uv"></span>/<span id="busuanzi_value_site_pv"></span>
+    </span>
+  
+
+  
+</div>
+
+      </footer>
+
+      <div class="button__back-to-top">
+        <a href="#back-to-top">
+          <i class="iconfont">
+            
+            <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+          </i>
+        </a>
+      </div>
+    </div>
+    
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.65bd29307f50a0fe07557f0c161b56cec2c19af4c8c64da7bbd4b055fd3c2ab5.js" integrity="sha256-Zb0pMH9QoP4HVX8MFhtWzsLBmvTIxk2nu9SwVf08KrU=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

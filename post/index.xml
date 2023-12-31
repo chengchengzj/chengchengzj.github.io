@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 05 Nov 2023 13:21:55 +0800</lastBuildDate><atom:link href="https://blog.emath.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Dec 2023 17:04:19 +0800</lastBuildDate><atom:link href="https://blog.emath.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SSH应用与实践</title>
+      <link>https://blog.emath.top/post/ops/ssh/</link>
+      <pubDate>Sun, 31 Dec 2023 17:04:19 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/ops/ssh/</guid>
+      <description>&lt;p&gt;休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Node.js应用监控</title>
       <link>https://blog.emath.top/post/nodeapp/apm/</link>

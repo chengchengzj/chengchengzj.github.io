@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSH on 个人学习笔记</title>
+    <link>https://blog.emath.top/tags/ssh/</link>
+    <description>Recent content in SSH on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 31 Dec 2023 17:04:19 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SSH应用与实践</title>
+      <link>https://blog.emath.top/post/ops/ssh/</link>
+      <pubDate>Sun, 31 Dec 2023 17:04:19 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/ops/ssh/</guid>
+      <description>&lt;p&gt;休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
