@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 个人学习笔记</title>
+    <link>https://blog.emath.top/tags/docker/</link>
+    <description>Recent content in docker on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 28 Mar 2024 23:13:13 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker日志文件限制</title>
+      <link>https://blog.emath.top/post/ops/docker/log-limit/</link>
+      <pubDate>Thu, 28 Mar 2024 23:13:13 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/ops/docker/log-limit/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dnsmasq on 个人学习笔记</title>
+    <link>https://blog.emath.top/tags/dnsmasq/</link>
+    <description>Recent content in dnsmasq on 个人学习笔记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 17 Mar 2024 17:06:40 +0800</lastBuildDate><atom:link href="https://blog.emath.top/tags/dnsmasq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从hosts文件到本地DNS服务</title>
+      <link>https://blog.emath.top/post/ops/dnsmasq/</link>
+      <pubDate>Sun, 17 Mar 2024 17:06:40 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/ops/dnsmasq/</guid>
+      <description>&lt;p&gt;记录MacOS搭建dns服务。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

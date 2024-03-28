@@ -6,10 +6,219 @@
     <description>Recent content on 个人学习笔记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 31 Dec 2023 17:04:19 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 28 Mar 2024 23:13:13 +0800</lastBuildDate>
     
         <atom:link href="https://blog.emath.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>docker日志文件限制</title>
+      <link>https://blog.emath.top/post/ops/docker/log-limit/</link>
+      <pubDate>Thu, 28 Mar 2024 23:13:13 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/ops/docker/log-limit/</guid>
+      
+        <description>&lt;h2 id=&#34;一背景&#34;&gt;一、背景&lt;/h2&gt;
+&lt;p&gt;服务每运行一段时间，系统盘空间都能以肉眼可见的速度再减少；不免让人好奇是谁在持续的占用空间，毕竟对于数据库、对象存储这些占空间的程序早已将其数据卷映射至其他磁盘上了。&lt;br&gt;
+难道是系统运行产生的一些日志文件，于是便开始逐步定位系统的大文件；最终发现是docker在运行过程中产生的日志文件过大。想到以前逻辑部署服务时，基于pm2守护进程帮忙管理日志文件，并能按日期切割；现在看来docker默认并没有这么做；因此，亟需调查docker如何实现定期清理日志文件。&lt;/p&gt;
+&lt;h2 id=&#34;二问题定位&#34;&gt;二、问题定位&lt;/h2&gt;
+&lt;h3 id=&#34;1-定位大文件&#34;&gt;1. 定位大文件&lt;/h3&gt;
+&lt;p&gt;基于&lt;code&gt;du -sh&lt;/code&gt; 命令定位当前目录的总磁盘使用情况；于是很快定位到&lt;code&gt;/var/lib/docker/containers&lt;/code&gt; 目录下容器的日志文件有些已经快10GB了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#过滤大文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; du -sh /* | grep G
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 5G      /home
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 32G     /var
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#进一步过滤大文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; du -sh /var/* | grep G
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 30G     /var/lib
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 2.0G    /var/log
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-临时解决&#34;&gt;2. 临时解决&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;方式一，直接删除日志文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#停止容器&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; docker stop xxx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#删除日志文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; rm -rf xxx.json.log
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#启动容器&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; docker start xxx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;方式二，清空日志文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; sh -c &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cat /dev/null &amp;gt; xxx.json.log&amp;#34;&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;三设置docker容器日志限制&#34;&gt;三、设置docker容器日志限制&lt;/h2&gt;
+&lt;p&gt;临时解决方案，只是暂时将磁盘空间得到释放；随着时间的推移，日志文件又将占满空间。虽然，可以设置定时任务，定期清理；但是我们还是希望能保留最近的日志，方便定位问题。当然，docker给了解决方案；既可以设置单个容器日志大小，也可以全局设置日志大小。&lt;/p&gt;
+&lt;h3 id=&#34;1-单个容器日志限制&#34;&gt;1. 单个容器日志限制&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;修改docker-compose.yaml 文件；添加logging部分内容：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;nginx&lt;/span&gt;: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;nginx:latest &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;logging&lt;/span&gt;: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#f92672&#34;&gt;driver&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;json-file&amp;#34;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#f92672&#34;&gt;options&lt;/span&gt;: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#f92672&#34;&gt;max-size&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;100m&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 单个日志文件大小上限为100MB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#f92672&#34;&gt;max-file&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# 最多有三个日志文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启docker容器即可生效&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; docker-compose up -d
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;2-全局设置&#34;&gt;2. 全局设置&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;编辑&lt;code&gt;/etc/docker/daemon.json&lt;/code&gt; 文件；添加以下内容：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;log-driver&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;json-file&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;log-opts&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;max-size&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;100m&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;max-file&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启 Docker 服务&lt;br&gt;
+注：对于已经创建的容器，修改内容并不会生效；所以必须重新创建容器，可以使用&lt;code&gt;--force-recreate&lt;/code&gt;参数强制重新创建容器即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#重新加载docker守护进程配置文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; systemctl daemon-reload
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#重启 Docker 服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; systemctl restart docker
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#重启容器并强制重新创建容器&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; docker-compose up -d --force-recreate
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看配置是否生效&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#检查Docker对象的详细信息（xxx:容器ID）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; docker inspect xxx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#输出信息如下即为成功&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;LogConfig&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;json-file&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Config&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     max-size: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;100m&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     max-file: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四官方文档&#34;&gt;四、官方文档&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.docker.com/config/containers/logging/configure/#configure-the-default-logging-driver&#34;&gt;https://docs.docker.com/config/containers/logging/configure/#configure-the-default-logging-driver&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;五总结&#34;&gt;五、总结&lt;/h2&gt;
+&lt;p&gt;docker确实给我们带来了很多便利，想以前裸机部署项目的时候，手动下载各种软件都会耗费一定的时间；而现在基于docker的CI/CD，让我们的服务不论是迭代上线，还是在新的环境部署，都能快速的实现。&lt;br&gt;
+不过，在使用docker过程中，难免会踩一些坑；在此做个记录，以免重复踩坑。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>从hosts文件到本地DNS服务</title>
+      <link>https://blog.emath.top/post/ops/dnsmasq/</link>
+      <pubDate>Sun, 17 Mar 2024 17:06:40 +0800</pubDate>
+      
+      <guid>https://blog.emath.top/post/ops/dnsmasq/</guid>
+      
+        <description>&lt;p&gt;记录MacOS搭建dns服务。&lt;/p&gt;
+&lt;h2 id=&#34;一背景&#34;&gt;一、背景&lt;/h2&gt;
+&lt;p&gt;当我们的系统平台是提供给众多企业使用（是支持多租户的），通过子域名来区分不同租户。在开发测试阶段，最直接的方法是修改hosts文件来修改域名的指向。起初也是用这种方法作为支撑的，但是发现了hosts文件存在一个问题，它不支持通配符，所以每次新增一个租户，便要修改一次hosts文件。尽管这类工作并不频繁，但也觉之繁琐，于是便决定使用一劳永逸的办法，搭建本地的DNS服务。&lt;/p&gt;
+&lt;h2 id=&#34;二多租户&#34;&gt;二、多租户&lt;/h2&gt;
+&lt;p&gt;通过subdomain来实现业务数据的隔离，大致流程如下图：
+&lt;img src=&#34;images/tenants.png&#34; alt=&#34;tenants&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-修改hosts文件方式&#34;&gt;1. 修改hosts文件方式&lt;/h3&gt;
+&lt;p&gt;通过修改hosts文件内容，便可实现域名到指定ip的映射，由于不支持通配符（*.saas.com），每加一个租户便要修改此文件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim /etc/hosts
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#追加以下内容：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;192.168.1.10 org_a.saas.com  org_b.saas.com  org_c.saas.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-修改dnsmasq配置文件方式&#34;&gt;2. 修改dnsmasq配置文件方式&lt;/h3&gt;
+&lt;p&gt;通过修改dnsmasq.conf文件内容，支持通配符（*.saas.com）到指定ip的映射；但是要搭建DNS服务。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;brew --prefix&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;/etc/dnsmasq.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#追加以下内容：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/.saas.com/192.168.1.10
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;三搭建dns服务&#34;&gt;三、搭建DNS服务&lt;/h2&gt;
+&lt;h3 id=&#34;1-macos搭建&#34;&gt;1. MacOS搭建&lt;/h3&gt;
+&lt;p&gt;个人使用时，可以直接在自己的机器上搭建DNS服务，具体步骤如下：&lt;/p&gt;
+&lt;h4 id=&#34;11-初次搭建&#34;&gt;1.1 初次搭建&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;安装：&lt;code&gt;brew install dnsmasq&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;追加配置：&lt;code&gt;vim $(brew --prefix)/etc/dnsmasq.conf&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#上游DNS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;8.8.8.8
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;4.4.4.4
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;223.5.5.5
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#服务监听地址，设置为127.0.0.1仅限本机使用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#listen-address=127.0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#服务监听地址，设置为本机在局域网中的地址（192.168.1.10）可以提供给局域网内的其他主机使用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;listen-address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;192.168.1.10,127.0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#监听端口，默认配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;port&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;53&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#dns解析记录 不使用通配符&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/test.com/127.0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#dns解析记录 使用通配符&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/.saas.com/192.168.1.10
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;验证配置语法：&lt;code&gt;dnsmasq --test&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dnsmasq: syntax check OK.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;启动服务: &lt;code&gt;sudo brew services start dnsmasq&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;刷新DNS: &lt;code&gt;sudo killall -HUP mDNSResponder&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;配置DNS: 添加127.0.0.1位于第一位
+&lt;img src=&#34;images/dns.png&#34; alt=&#34;dns&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;12-追加映射步骤&#34;&gt;1.2 追加映射步骤&lt;/h4&gt;
+&lt;p&gt;目标：添加域名 *.test.cn 映射至 127.0.0.1；参照以下步骤即可：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;追加配置信息：&lt;code&gt;echo &#39;address=/.test.cn/127.0.0.1&#39; &amp;gt;&amp;gt; $(brew --prefix)/etc/dnsmasq.conf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;重启服务：&lt;code&gt;sudo brew services restart dnsmasq&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;刷新DNS: &lt;code&gt;sudo killall -HUP mDNSResponder&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;验证：&lt;code&gt;nslookup a.test.cn&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Server:   127.0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Address:  127.0.0.1#53
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Name:    a.test.cn
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Address: 127.0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;2-linux搭建&#34;&gt;2. Linux搭建&lt;/h3&gt;
+&lt;p&gt;团队使用时，可以选择在服务器上搭建DNS服务，供团队所有成员使用。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;搭建dnsmasq服务&lt;/li&gt;
+&lt;li&gt;配置路由器DNS
+&lt;img src=&#34;images/router.png&#34; alt=&#34;router&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四dnsmasq&#34;&gt;四、dnsmasq&lt;/h2&gt;
+&lt;h3 id=&#34;1-简介&#34;&gt;1. 简介&lt;/h3&gt;
+&lt;p&gt;dnsmasq 提供 DNS 缓存和 DHCP 服务功能。&lt;br&gt;
+作为域名解析服务器(DNS)，通过缓存 DNS 请求来提高对访问过的网址的连接速度。&lt;br&gt;
+作为DHCP 服务器，dnsmasq 可以用于为局域网电脑分配内网ip地址和提供路由。&lt;/p&gt;
+&lt;h3 id=&#34;2-主要作用&#34;&gt;2. 主要作用&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;指定域名解析到特定的IP上。&lt;/li&gt;
+&lt;li&gt;智能DNS加快解析速度，为不同的根域名指定不同的上游DNS服务。
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#国内指定DNS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/cn/114.114.114.114
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#国外指定DNS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/google.com/8.8.8.8
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;屏蔽网页广告，将广告域名解析至本地ip。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;五总结&#34;&gt;五、总结&lt;/h2&gt;
+&lt;p&gt;尽管修改hosts是最便捷的方式，但是对于整个团队而言，人人都频繁的修改自己机器的hosts文件，个人感觉也是一件很麻烦的事情；于是选择了dnsmasq服务，事实上，也达到了目的，修改配置文件的频率也大大降低了。&lt;/p&gt;</description>
+      
+    </item>
     
     <item>
       <title>SSH应用与实践</title>
@@ -18,7 +227,7 @@
       
       <guid>https://blog.emath.top/post/ops/ssh/</guid>
       
-        <description>&lt;p&gt;休完陪产假回到公司便听说了优化的事情，不禁感叹今年真的挺难的。无奈作为一名开发人员，又要开始兼职运维的工作，因此也顺便整理一下有关SSH的相关知识。&lt;/p&gt;
+        <description>&lt;p&gt;SSH使用笔记&lt;/p&gt;
 &lt;h2 id=&#34;一背景&#34;&gt;一、背景&lt;/h2&gt;
 &lt;p&gt;Linux系统大多数情况下作为服务器而存在，服务的部署绕不开对Linux的操作，通过整理SSH知识点与实践笔记，可以完成对Linux系统的连接、实现跳板机、端口转发等目标。&lt;/p&gt;
 &lt;h2 id=&#34;二安全远程登录&#34;&gt;二、安全远程登录&lt;/h2&gt;

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>
-          个人博客缘起 - 个人学习笔记
+          从hosts文件到本地DNS服务 - 个人学习笔记
         </title>
     
 
@@ -28,7 +28,9 @@
 
 <meta name="mobile-web-app-capable" content="yes">
 
-<meta name="author" content="chengcheng" /><meta name="description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。" />
+<meta name="author" content="chengcheng" />
+  <meta name="description" content="记录MacOS搭建dns服务。
+" />
 
   <meta name="keywords" content="Hugo, Blog, Note" />
 
@@ -40,7 +42,7 @@
 <meta name="generator" content="Hugo 0.119.0" />
 
 
-<link rel="canonical" href="https://blog.emath.top/post/origin/" />
+<link rel="canonical" href="https://blog.emath.top/post/ops/dnsmasq/" />
 
 
 
@@ -66,19 +68,19 @@
 
 
 
-<meta property="og:title" content="个人博客缘起" />
-<meta property="og:description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。" />
+<meta property="og:title" content="从hosts文件到本地DNS服务" />
+<meta property="og:description" content="记录MacOS搭建dns服务。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.emath.top/post/origin/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-10-17T22:10:59+08:00" />
-<meta property="article:modified_time" content="2023-10-17T22:10:59+08:00" />
-<meta itemprop="name" content="个人博客缘起">
-<meta itemprop="description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。"><meta itemprop="datePublished" content="2023-10-17T22:10:59+08:00" />
-<meta itemprop="dateModified" content="2023-10-17T22:10:59+08:00" />
-<meta itemprop="wordCount" content="747">
-<meta itemprop="keywords" content="博客,杂文,感悟," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="个人博客缘起"/>
-<meta name="twitter:description" content="记录自己为什么要写博客及围绕博客这个主题将会做些什么。"/>
+<meta property="og:url" content="https://blog.emath.top/post/ops/dnsmasq/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-03-17T17:06:40+08:00" />
+<meta property="article:modified_time" content="2024-03-17T17:06:40+08:00" />
+<meta itemprop="name" content="从hosts文件到本地DNS服务">
+<meta itemprop="description" content="记录MacOS搭建dns服务。"><meta itemprop="datePublished" content="2024-03-17T17:06:40+08:00" />
+<meta itemprop="dateModified" content="2024-03-17T17:06:40+08:00" />
+<meta itemprop="wordCount" content="1135">
+<meta itemprop="keywords" content="运维,dnsmasq," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="从hosts文件到本地DNS服务"/>
+<meta name="twitter:description" content="记录MacOS搭建dns服务。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -301,7 +303,7 @@
       <article class="post">
         
         <header class="post-header">
-          <h1 class="post-title">个人博客缘起</h1>
+          <h1 class="post-title">从hosts文件到本地DNS服务</h1>
           
 
           <div class="post-meta">
@@ -316,8 +318,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2023-10-17">
-      2023-10-17
+    <time datetime="2024-03-17">
+      2024-03-17
     </time>
   </div>
 
@@ -326,12 +328,12 @@
 
   <div class="post-meta__right">
     <span class="post-meta-more">
-        约 747 字 -
-        预计阅读 2 分钟
+        约 1135 字 -
+        预计阅读 3 分钟
       </span>
 
     <div class="post-meta-category">
-        <a href="https://blog.emath.top/categories/%E6%84%9F%E6%82%9F/"> 感悟 </a>
+        <a href="https://blog.emath.top/categories/%E8%BF%90%E7%BB%B4%E7%AC%94%E8%AE%B0/"> 运维笔记 </a>
           
       </div>
 
@@ -353,37 +355,95 @@
 
         
         <div class="post-content">
-          <p>记录自己为什么要写博客及围绕博客这个主题将会做些什么。</p>
-<h2 id="先提问再起笔">先提问再起笔</h2>
+          <p>记录MacOS搭建dns服务。</p>
+<h2 id="一背景">一、背景</h2>
+<p>当我们的系统平台是提供给众多企业使用（是支持多租户的），通过子域名来区分不同租户。在开发测试阶段，最直接的方法是修改hosts文件来修改域名的指向。起初也是用这种方法作为支撑的，但是发现了hosts文件存在一个问题，它不支持通配符，所以每次新增一个租户，便要修改一次hosts文件。尽管这类工作并不频繁，但也觉之繁琐，于是便决定使用一劳永逸的办法，搭建本地的DNS服务。</p>
+<h2 id="二多租户">二、多租户</h2>
+<p>通过subdomain来实现业务数据的隔离，大致流程如下图：
+<img src="images/tenants.png" alt="tenants"></p>
+<h3 id="1-修改hosts文件方式">1. 修改hosts文件方式</h3>
+<p>通过修改hosts文件内容，便可实现域名到指定ip的映射，由于不支持通配符（*.saas.com），每加一个租户便要修改此文件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim /etc/hosts
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#追加以下内容：</span>
+</span></span><span style="display:flex;"><span>192.168.1.10 org_a.saas.com  org_b.saas.com  org_c.saas.com
+</span></span></code></pre></div><h3 id="2-修改dnsmasq配置文件方式">2. 修改dnsmasq配置文件方式</h3>
+<p>通过修改dnsmasq.conf文件内容，支持通配符（*.saas.com）到指定ip的映射；但是要搭建DNS服务。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim <span style="color:#66d9ef">$(</span>brew --prefix<span style="color:#66d9ef">)</span>/etc/dnsmasq.conf
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#追加以下内容：</span>
+</span></span><span style="display:flex;"><span>address<span style="color:#f92672">=</span>/.saas.com/192.168.1.10
+</span></span></code></pre></div><h2 id="三搭建dns服务">三、搭建DNS服务</h2>
+<h3 id="1-macos搭建">1. MacOS搭建</h3>
+<p>个人使用时，可以直接在自己的机器上搭建DNS服务，具体步骤如下：</p>
+<h4 id="11-初次搭建">1.1 初次搭建</h4>
 <ol>
-<li>为什么要搭建个人博客？</li>
-<li>会不会是三分钟热度？</li>
-<li>考虑好记录哪些内容？</li>
-<li>对于技术选型有哪些思考？</li>
-<li>有哪些期望和目标？</li>
+<li>安装：<code>brew install dnsmasq</code></li>
+<li>追加配置：<code>vim $(brew --prefix)/etc/dnsmasq.conf</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#上游DNS</span>
+</span></span><span style="display:flex;"><span>server<span style="color:#f92672">=</span>8.8.8.8
+</span></span><span style="display:flex;"><span>server<span style="color:#f92672">=</span>4.4.4.4
+</span></span><span style="display:flex;"><span>server<span style="color:#f92672">=</span>223.5.5.5
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#服务监听地址，设置为127.0.0.1仅限本机使用</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#listen-address=127.0.0.1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#服务监听地址，设置为本机在局域网中的地址（192.168.1.10）可以提供给局域网内的其他主机使用</span>
+</span></span><span style="display:flex;"><span>listen-address<span style="color:#f92672">=</span>192.168.1.10,127.0.0.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#监听端口，默认配置</span>
+</span></span><span style="display:flex;"><span>port<span style="color:#f92672">=</span><span style="color:#ae81ff">53</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#dns解析记录 不使用通配符</span>
+</span></span><span style="display:flex;"><span>address<span style="color:#f92672">=</span>/test.com/127.0.0.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#dns解析记录 使用通配符</span>
+</span></span><span style="display:flex;"><span>address<span style="color:#f92672">=</span>/.saas.com/192.168.1.10
+</span></span></code></pre></div></li>
+<li>验证配置语法：<code>dnsmasq --test</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dnsmasq: syntax check OK.
+</span></span></code></pre></div></li>
+<li>启动服务: <code>sudo brew services start dnsmasq</code></li>
+<li>刷新DNS: <code>sudo killall -HUP mDNSResponder</code></li>
+<li>配置DNS: 添加127.0.0.1位于第一位
+<img src="images/dns.png" alt="dns"></li>
 </ol>
-<h2 id="思而答">思而答</h2>
-<h3 id="为什么要搭建个人博客">为什么要搭建个人博客</h3>
-<p>首先，搭建博客既有内因也有外因。</p>
-<p>外因：当前的就业环境并不理想，竞争压力大，可生活压力更大，失业的囧境不敢想象。也受很多博主文章的影响，像是“不要高估一年的成长，更不要低估十年的成长”。外在环境在不断的牵引着我要去学习，去积累，去沉淀。</p>
-<p>内因：自己本身对研究技术，搭建博客等感兴趣，再者，也不想业余时间沉浸在抖音之类的娱乐上自我消磨。去实践，去将自己学到的，想学的及生活中的感悟记录在册，方便日后查阅。我相信最好的学习方式是输入的同时快速输出实践，否则很难进一步的理解以及容易忘却。</p>
-<p>综上，个人博客的实践应运而生。</p>
-<h3 id="会不会是三分钟热度">会不会是三分钟热度</h3>
-<p>确实，很多时候我是三分钟热度，业余生活中容易被其他事情影响，而放弃原本想坚持的事情。我也想通过此方式，告诫自己要养成坚持初心的习惯。不断学习，不断实践，不断记录。</p>
-<h3 id="考虑好记录哪些内容">考虑好记录哪些内容</h3>
-<p>目前，想记录内容总体分为三大类吧，</p>
-<ul>
-<li>技术实践</li>
-<li>学习笔记</li>
-<li>生活感悟</li>
-</ul>
-<p>希望养成边学边练边输出的习惯，助力自己更好的学习各项技能。</p>
-<h3 id="对于技术选型有哪些思考">对于技术选型有哪些思考</h3>
-<p>目前选择了静态博客的方式，因为想快速看到效果，而不是自己花时间去从头搭建一套CMS，当然未来有可能去做这件事。通过hugo快速生成静态页面，通过GitHub Action 串联 GitHub page 的方式，实现一键式部署的方式，边玩边学的心态。</p>
-<h3 id="有哪些期望和目标">有哪些期望和目标</h3>
-<p>至于期望与目标，短期来看，就想通过这样一种方式养成持续学习的习惯，达到深入理解知识点的目的。明确目标，对系统架构的理解、对基础知识的掌握、对典型应用场景的技术选型有一定的梳理与记录。</p>
-<h2 id="结语">结语</h2>
-<p>锲而舍之，朽木不折；锲而不舍，金石可镂。</p>
+<h4 id="12-追加映射步骤">1.2 追加映射步骤</h4>
+<p>目标：添加域名 *.test.cn 映射至 127.0.0.1；参照以下步骤即可：</p>
+<ol>
+<li>追加配置信息：<code>echo 'address=/.test.cn/127.0.0.1' &gt;&gt; $(brew --prefix)/etc/dnsmasq.conf</code></li>
+<li>重启服务：<code>sudo brew services restart dnsmasq</code></li>
+<li>刷新DNS: <code>sudo killall -HUP mDNSResponder</code></li>
+<li>验证：<code>nslookup a.test.cn</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Server:   127.0.0.1
+</span></span><span style="display:flex;"><span>Address:  127.0.0.1#53
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Name:    a.test.cn
+</span></span><span style="display:flex;"><span>Address: 127.0.0.1
+</span></span></code></pre></div></li>
+</ol>
+<h3 id="2-linux搭建">2. Linux搭建</h3>
+<p>团队使用时，可以选择在服务器上搭建DNS服务，供团队所有成员使用。</p>
+<ol>
+<li>搭建dnsmasq服务</li>
+<li>配置路由器DNS
+<img src="images/router.png" alt="router"></li>
+</ol>
+<h2 id="四dnsmasq">四、dnsmasq</h2>
+<h3 id="1-简介">1. 简介</h3>
+<p>dnsmasq 提供 DNS 缓存和 DHCP 服务功能。<br>
+作为域名解析服务器(DNS)，通过缓存 DNS 请求来提高对访问过的网址的连接速度。<br>
+作为DHCP 服务器，dnsmasq 可以用于为局域网电脑分配内网ip地址和提供路由。</p>
+<h3 id="2-主要作用">2. 主要作用</h3>
+<ol>
+<li>指定域名解析到特定的IP上。</li>
+<li>智能DNS加快解析速度，为不同的根域名指定不同的上游DNS服务。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#国内指定DNS</span>
+</span></span><span style="display:flex;"><span>server<span style="color:#f92672">=</span>/cn/114.114.114.114
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#国外指定DNS</span>
+</span></span><span style="display:flex;"><span>server<span style="color:#f92672">=</span>/google.com/8.8.8.8
+</span></span></code></pre></div></li>
+<li>屏蔽网页广告，将广告域名解析至本地ip。</li>
+</ol>
+<h2 id="五总结">五、总结</h2>
+<p>尽管修改hosts是最便捷的方式，但是对于整个团队而言，人人都频繁的修改自己机器的hosts文件，个人感觉也是一件很麻烦的事情；于是选择了dnsmasq服务，事实上，也达到了目的，修改配置文件的频率也大大降低了。</p>
         </div>
 
         
@@ -397,9 +457,8 @@
 
         <footer class="post-footer">
           <div class="post-tags">
-              <a href="https://blog.emath.top/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
-                <a href="https://blog.emath.top/tags/%E6%9D%82%E6%96%87/">杂文</a>
-                <a href="https://blog.emath.top/tags/%E6%84%9F%E6%82%9F/">感悟</a>
+              <a href="https://blog.emath.top/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+                <a href="https://blog.emath.top/tags/dnsmasq/">dnsmasq</a>
                 
             </div>
 
@@ -407,7 +466,7 @@
           
           <nav class="post-nav">
             
-              <a class="prev" href="/post/hugo/hugoblog/">
+              <a class="prev" href="/post/ops/docker/log-limit/">
                 
                 <i class="iconfont">
                   <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -417,12 +476,12 @@
 </svg>
 
                 </i>
-                <span class="prev-text nav-default">基于HUGO搭建个人静态博客</span>
+                <span class="prev-text nav-default">docker日志文件限制</span>
                 <span class="prev-text nav-mobile">上一篇</span>
               </a>
             
-              <a class="next" href="/post/hugo/deployblog/">
-                <span class="next-text nav-default">实现个人静态博客的全网访问</span>
+              <a class="next" href="/post/ops/ssh/">
+                <span class="next-text nav-default">SSH应用与实践</span>
                 <span class="prev-text nav-mobile">下一篇</span>
                 
                 <i class="iconfont">
@@ -445,6 +504,35 @@
       
       
 
+  
+
+  
+  
+
+  
+  
+    <div class="post">
+  <script src="https://utteranc.es/client.js"
+        repo= "chengchengzj/chengchengzj.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</div>
+
+  
+
+  
+
+  
+
+    
+
+  
+
+  
+
 
     </div>
 
@@ -454,17 +542,26 @@
     <div class="toc-content custom-scrollbar">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#先提问再起笔">先提问再起笔</a></li>
-    <li><a href="#思而答">思而答</a>
+    <li><a href="#一背景">一、背景</a></li>
+    <li><a href="#二多租户">二、多租户</a>
       <ul>
-        <li><a href="#为什么要搭建个人博客">为什么要搭建个人博客</a></li>
-        <li><a href="#会不会是三分钟热度">会不会是三分钟热度</a></li>
-        <li><a href="#考虑好记录哪些内容">考虑好记录哪些内容</a></li>
-        <li><a href="#对于技术选型有哪些思考">对于技术选型有哪些思考</a></li>
-        <li><a href="#有哪些期望和目标">有哪些期望和目标</a></li>
+        <li><a href="#1-修改hosts文件方式">1. 修改hosts文件方式</a></li>
+        <li><a href="#2-修改dnsmasq配置文件方式">2. 修改dnsmasq配置文件方式</a></li>
       </ul>
     </li>
-    <li><a href="#结语">结语</a></li>
+    <li><a href="#三搭建dns服务">三、搭建DNS服务</a>
+      <ul>
+        <li><a href="#1-macos搭建">1. MacOS搭建</a></li>
+        <li><a href="#2-linux搭建">2. Linux搭建</a></li>
+      </ul>
+    </li>
+    <li><a href="#四dnsmasq">四、dnsmasq</a>
+      <ul>
+        <li><a href="#1-简介">1. 简介</a></li>
+        <li><a href="#2-主要作用">2. 主要作用</a></li>
+      </ul>
+    </li>
+    <li><a href="#五总结">五、总结</a></li>
   </ul>
 </nav>
     </div>
